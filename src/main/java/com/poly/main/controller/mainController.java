@@ -9,4 +9,16 @@ public class mainController {
 	public String index() {
 		return "index";
 	}
+	@GetMapping("/account/login")
+	public String login() {
+		return "login";
+	}
+	@GetMapping("/account/quenMK")
+	public String QuenMK() {
+		return "quenMK";
+	}
+	@GetMapping("/account/sign-up")
+	public String signup() {
+		return "sign-up";
+	}
 }
