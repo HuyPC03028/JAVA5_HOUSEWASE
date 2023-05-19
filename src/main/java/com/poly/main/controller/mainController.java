@@ -21,4 +21,8 @@ public class mainController {
 	public String signup() {
 		return "sign-up";
 	}
+	@GetMapping("/mau")
+	public String mau() {
+		return "mau";
+	}
 }
