@@ -21,4 +21,8 @@ public class mainController {
 	public String signup() {
 		return "sign-up";
 	}
+	@GetMapping("/chiTietSanPham")
+	public String chiTietSanPham() {
+		return "chitietsanpham";
+	}
 }
