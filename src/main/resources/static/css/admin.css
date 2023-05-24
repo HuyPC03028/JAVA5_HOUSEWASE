@@ -1,0 +1,112 @@
+.product-header {
+    margin-bottom: 20px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.product-card a {
+    animation: changeColor 1s infinite;
+    text-decoration: none;
+    color: #333;
+}
+
+.product-card:hover a {
+    color: #0069d9;
+}
+
+.logo{
+    background-color: #FFF7CD;
+    height: 200px;
+}
+
+.logo h1 {
+    animation: changeColor 3s infinite;
+    text-align: center;
+    padding-top: 50px;
+}
+
+@keyframes changeColor {
+    0% {
+        color: red;
+    }
+    25% {
+        color: blue;
+    }
+    50% {
+        color: green;
+    }
+    75% {
+        color: yellow;
+    }
+    100% {
+        color: red;
+    }
+}
+@keyframes changeBackGroudColor {
+    0% {
+        background-color: red;
+    }
+    25% {
+        background-color: blue;
+    }
+    50% {
+        background-color: green;
+    }
+    75% {
+        background-color: yellow;
+    }
+    100% {
+        background-color: red;
+    }
+}
+
+.note-card {
+    background-color: #FFF7CD;
+    border: 1px solid #F5D98B;
+    padding: 20px;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.note-card:before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 15px;
+    height: calc(100% + 2px);
+    background-color: #F5D98B;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.note-card h3 {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+.note-card a {
+    animation: changeColor 1s infinite;
+    float: left;
+    margin-left: 1000px;
+    margin-top: -30px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+.note-card a:hover {
+    color: darkgray;
+}
