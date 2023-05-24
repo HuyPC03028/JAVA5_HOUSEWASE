@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thống kê - Báo cáo</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://localhost:8080/css/admin.css">
+    <style>
+        .tab-content {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Giao Diện Admin</h1>
+        </div>
+
+        <div class="note-card">
+            <h3>Thống kê - Báo cáo</h3>
+            <a href="/admin">Menu</a>
+        </div>
+
+        <ul class="nav nav-tabs mt-4">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tab1">Thống kê theo tháng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab2">Thống kê theo năm</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tab1">
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>ORD001</td>
+                            <td>Product 1</td>
+                            <td>2022-01-15</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>ORD002</td>
+                            <td>Product 2</td>
+                            <td>2022-01-20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="tab2">
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>ORD001</td>
+                            <td>Product 1</td>
+                            <td>2022-01-15</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>ORD002</td>
+                            <td>Product 2</td>
+                            <td>2022-01-20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    </div>
+    <footer><div class="logo">
+        <h1></h1>
+    </div></footer>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -21,8 +21,36 @@ public class mainController {
 	public String signup() {
 		return "sign-up";
 	}
-	@GetMapping("/mau")
-	public String mau() {
-		return "mau";
+	@GetMapping("/chiTietSanPham")
+	public String chiTietSanPham() {
+		return "chitietsanpham";
+	}
+	@GetMapping("/admin")
+	public String admin() {
+		return "admin/index";
+	}
+	@GetMapping("/admin/quanLyUser")
+	public String quanLyUser() {
+		return "admin/quanLyUser";
+	}
+	@GetMapping("admin/quanLyProduct")
+	public String quanLyProduct() {
+		return "admin/quanLyProduct";
+	}
+	@GetMapping("admin/quanLyKho")
+	public String quanLyKho() {
+		return "admin/quanLyKho";
+	}
+	@GetMapping("admin/quanLyDonHang")
+	public String quanLyDonHang() {
+		return "admin/quanLyDonHang";
+	}
+	@GetMapping("admin/quanLyKhuyenMai")
+	public String quanLyKhuyenMai() {
+		return "admin/quanLyKhuyenMai";
+	}
+	@GetMapping("admin/thongKe")
+	public String thongKe() {
+		return "admin/thongKe";
 	}
 }
