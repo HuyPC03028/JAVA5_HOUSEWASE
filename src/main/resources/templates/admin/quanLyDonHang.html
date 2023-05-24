@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Đơn hàng</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://localhost:8080/css/admin.css">
+    <style>
+        .tab-content {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>Giao Diện admin</h1>
+        </div>
+
+        <div class="note-card">
+            <h3>Quản lý đơn hàng</h3>
+            <a href="/admin">Menu</a>
+        </div>
+
+        <ul class="nav nav-tabs mt-4">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tab1">Bảng dữ liệu</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tab1">
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>User1</td>
+                            <td>2023-05-21</td>
+                            <td>$100.00</td>
+                            <td>Processing</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>User2</td>
+                            <td>2023-05-22</td>
+                            <td>$150.00</td>
+                            <td>Shipped</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    </div>
+    <footer><div class="logo">
+        <h1></h1>
+    </div></footer>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

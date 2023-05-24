@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="http://localhost:8080/css/admin.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <span>
+                <h1>Giao Diện admin</h1>
+            </span>
+        </div>
+
+        <div class="note-card">
+            <h3>Quản lý tài khoản</h3>
+            <a href="/admin">Menu</a>
+        </div>
+
+        <ul class="nav nav-tabs mt-4">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tab1">Bảng dữ liệu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tab2">Nhập thông tin</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-2">
+            <div class="tab-pane fade show active" id="tab1">
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">User</th>
+                            <th scope="col">Fullname</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>user1</td>
+                            <td>John Doe</td>
+                            <td>********</td>
+                            <td>johndoe@example.com</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>user2</td>
+                            <td>Jane Smith</td>
+                            <td>********</td>
+                            <td>janesmith@example.com</td>
+                            <td>No</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="tab-pane fade" id="tab2">
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <form>
+
+                            <div class="form-group">
+                                <label for="inputFullname">Fullname:</label>
+                                <input type="text" class="form-control" id="inputFullname">
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail">Email:</label>
+                                <input type="email" class="form-control" id="inputEmail">
+                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="inputUser">User:</label>
+                            <input type="text" class="form-control" id="inputUser">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword">Password:</label>
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputAdmin">Admin:</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminYes"
+                                    value="yes">
+                                <label class="form-check-label" for="inputAdminYes">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminNo"
+                                    value="no" checked>
+                                <label class="form-check-label" for="inputAdminNo">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Sửa</button>
+                            <button type="submit" class="btn btn-primary ml-2">Xóa</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    <footer><div class="logo">
+        <h1></h1>
+    </div></footer>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
