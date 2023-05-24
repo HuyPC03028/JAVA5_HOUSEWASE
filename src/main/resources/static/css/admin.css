@@ -3,6 +3,8 @@
 }
 
 .product-card {
+	background-image:url('http://localhost:8080/assets/images/blog/br3.jpg');
+	border-radius: 8px;
     border: 1px solid #ccc;
     margin-bottom: 20px;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -15,7 +17,7 @@
 }
 
 .product-card a {
-    animation: changeColor 1s infinite;
+    
     text-decoration: none;
     color: #333;
 }
@@ -25,7 +27,7 @@
 }
 
 .logo{
-    background-color: #FFF7CD;
+	background-image:url('http://localhost:8080/assets/images/blog/br2.jpg');
     height: 200px;
 }
 
@@ -71,7 +73,7 @@
 }
 
 .note-card {
-    background-color: #FFF7CD;
+    background-image:url('http://localhost:8080/assets/images/blog/br5.jpg');
     border: 1px solid #F5D98B;
     padding: 20px;
     position: relative;
