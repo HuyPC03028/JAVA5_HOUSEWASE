@@ -9,5 +9,4 @@ public class Java5HousewareApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(Java5HousewareApplication.class, args);
 	}
-
 }
