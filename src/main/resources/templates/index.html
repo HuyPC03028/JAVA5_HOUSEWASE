@@ -90,8 +90,8 @@
 										sơ</a></li>
 								<li class="nav-item"><a data-scroll-nav="0" href="#contact">Liên
 										hệ</a></li>
-								<li class="nav-item"><a href="account/login">Đăng nhập</a>
-								</li>
+								<li class="nav-item" th:if="${loggedIn}"><a th:text="${username}" href="#">Username</a></li>
+        						<li class="nav-item" th:unless="${loggedIn}"><a href="/account/login">Đăng nhập</a></li>
 							</ul>
 							<!-- navbar nav -->
 						</div>
@@ -1325,7 +1325,7 @@
 											<i class="lni-home"></i>
 										</div>
 										<div class="info-content">
-											<p>Đăng xuất</p>
+											<a href="/logout"><p>Đăng xuất</p></a>
 										</div>
 									</div> <!-- single info -->
 								</li>

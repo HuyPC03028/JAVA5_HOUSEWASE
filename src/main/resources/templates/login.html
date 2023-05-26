@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="en">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Đăng nhập</title>
 <!-- Required meta tags -->
@@ -12,44 +11,43 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">	
+	crossorigin="anonymous">
 </head>
 <body>
 	<main class="container">
 		<div class="row">
 			<div class="offset-4 col-4">
 				<!-- Thông báo -->
-	
-				<form action="" method="post">
-					<div class="card">
-						<div class="card-header">
-							<b>Đăng nhập</b>
-						</div>
-						<div class="card-body">
-							<div class="form-group">
-								<label for="username">Tên tài khoản:</label> <input type="text"
-									class="form-control" name="username" id="username"
-									aria-describedby="UsernameId" placeholder="Tài khoản"> <small
-									id="UsernameId" class="form-text text-muted">Tài khoản là bắt buộc!</small>
-							</div>
-							<div class="form-group">
-								<label for="password">Mật khẩu:</label> <input type="password"
-									class="form-control" name="password" id="password"
-									aria-describedby="PasswordId" placeholder="Mật khẩu"> <small
-									id="PasswordId" class="form-text text-muted">Mật khẩu là bắt buộc!</small>
-							</div>
-							<div class="form-check form-check-inline">
-								<label> <input class="form-check-input" type="radio"
-									name="remember"> Lưu tài khoản?
-								</label>
-							</div>
-						</div>
-						<div class="card-footer text-muted">
-							<button class="btn btn-success" formaction="login">Login</button>
-							<label class="mx-3"><a href="quenMK" class="text-dark">Quên mật khẩu</a></label>
-							<label><a href="sign-up" class="text-dark">Đăng ký</a></label>
-						</div>
-					</div>
+<div class="alert alert-warning" th:text="${message}"></div>
+				<form th:action="@{/account/login}" method="post">
+					 <div class="card">
+        <div class="card-header">
+            <b>Đăng nhập</b>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="username">Tên tài khoản:</label>
+                <input th:field="${user.username}" type="text" class="form-control" id="username" aria-describedby="UsernameId" placeholder="Tài khoản">
+                <div class="alert alert-warning" th:errors="${user.username}"></div>
+                <small id="UsernameId" class="form-text text-muted">Tài khoản là bắt buộc!</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input th:field="${user.password}" type="password" class="form-control" id="password" aria-describedby="PasswordId" placeholder="Mật khẩu" >
+                <div class="alert alert-warning" th:errors="${user.password}"></div>
+                <small id="PasswordId" class="form-text text-muted">Mật khẩu là bắt buộc!</small>
+            </div>
+            <div class="form-check form-check-inline">
+                <label>
+                    <input type="checkbox" th:field="${user.remember}" value="false">Lưu tài khoản? </label><br> 
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            <button class="btn btn-success" type="submit">Login</button>
+            <label class="mx-3"><a href="quenMK" class="text-dark">Quên mật khẩu</a></label>
+            <label><a href="sign-up" class="text-dark">Đăng ký</a></label>
+        </div>
+    </div>
 				</form>
 			</div>
 		</div>
