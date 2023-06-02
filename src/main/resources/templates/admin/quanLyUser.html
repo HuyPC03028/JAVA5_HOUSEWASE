@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -36,94 +36,94 @@
         </ul>
 
         <div class="tab-content mt-2">
-            <div class="tab-pane fade show active" id="tab1">
+            <div class="tab-pane fade show active" id="tab1" >
                 <table class="table mt-4">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">User</th>
                             <th scope="col">Fullname</th>
+                            <th scope="col">Username</th>
                             <th scope="col">Password</th>
                             <th scope="col">Email</th>
                             <th scope="col">Admin</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>user1</td>
-                            <td>John Doe</td>
-                            <td>********</td>
-                            <td>johndoe@example.com</td>
-                            <td>Yes</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>user2</td>
-                            <td>Jane Smith</td>
-                            <td>********</td>
-                            <td>janesmith@example.com</td>
-                            <td>No</td>
-                        </tr>
+                        <tr th:each="user : ${users}">
+				            <td th:text="${user.id}"></td>
+				            <td th:text="${user.fullname}"></td>
+				            <td th:text="${user.username}"></td>
+				            <td th:text="${user.password}"></td>
+				            <td th:text="${user.email}"></td>
+				            <td th:text="${user.admin}"></td>
+				            <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}" class="btn btn-primary btn-sm">Sửa</a></td>
+        				</tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="tab-pane fade" id="tab2">
+            <div class="tab-pane fade" id="tab2" th:classappend="${activeTab == 'tab2'} ? 'show active' : ''">
                 <div class="row mt-4">
-                    <div class="col-md-6">
-                        <form>
-
-                            <div class="form-group">
-                                <label for="inputFullname">Fullname:</label>
-                                <input type="text" class="form-control" id="inputFullname">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputEmail">Email:</label>
-                                <input type="email" class="form-control" id="inputEmail">
-                            </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="inputUser">User:</label>
-                            <input type="text" class="form-control" id="inputUser">
-                        </div>
-                        <div class="form-group">
-                            <label for="inputPassword">Password:</label>
-                            <input type="password" class="form-control" id="inputPassword">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputAdmin">Admin:</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminYes"
-                                    value="yes">
-                                <label class="form-check-label" for="inputAdminYes">
-                                    Yes
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminNo"
-                                    value="no" checked>
-                                <label class="form-check-label" for="inputAdminNo">
-                                    No
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-md-12">
-                            <button type="submit"  class="btn btn-success">Sửa</button>
-                            <button type="submit"  class="btn btn-danger ml-2">Xóa</button>
-                        </div>
-                    </div>
+                	<form th:action="@{/admin/saveUser}" method="post" th:object="${user}">
+                    	<div class="row mt-4">
+						    <div class="col-md-6">
+						    <div class="form-group">
+						            <label for="inputFullname">ID:</label>
+						            <input type="text" class="form-control" id="inputID" th:field="*{id}">
+						        </div>
+						        <div class="form-group">
+						            <label for="inputFullname">Fullname:</label>
+						            <input type="text" class="form-control" id="inputFullname" th:field="*{fullname}">
+						            <div class="alert alert-warning" th:errors="${user.fullname}"></div>
+						        </div>
+						        <div class="form-group">
+						            <label for="inputEmail">Email:</label>
+						            <input type="email" class="form-control" id="inputEmail" th:field="*{email}">
+						             <div class="alert alert-warning" th:errors="${user.email}"></div>
+						        </div>
+						    </div>
+						    <div class="col-md-6">
+						        <div class="form-group">
+						            <label for="inputUser">User:</label>
+						            <input type="text" class="form-control" id="inputUser" th:field="*{username}">
+						            <div class="alert alert-warning" th:errors="${user.username}"></div>
+						        </div>
+						        <div class="form-group">
+						            <label for="inputPassword">Password:</label>
+						            <input type="text" class="form-control" id="inputPassword" th:field="*{password}">
+						            <div class="alert alert-warning" th:errors="${user.password}"></div>
+						        </div>
+						        <div class="form-group">
+						            <label for="inputAdmin">Admin:</label>
+						            <div class="form-check">
+						                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminYes" value="yes"
+						                       th:field="${user.admin}" th:checked="${user.admin == 'yes'}">
+						                <label class="form-check-label" for="inputAdminYes">
+						                    Yes
+						                </label>
+						            </div>
+						            <div class="form-check">
+						                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminNo" value="no"
+						                       th:field="${user.admin}" th:checked="${user.admin == 'no'}">
+						                <label class="form-check-label" for="inputAdminNo">
+						                    No
+						                </label>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+						<div class="row mt-2">
+                        	<div class="col-md-12">
+	                           <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+	                            <a th:href="@{/admin/deleteUser/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Xóa</a>
+	                     	</div>
+	                    </div>
                     </form>
                 </div>
             </div>
         </div>
-
         </div>
-    </div>
     <footer><div class="logo">
         <h1></h1>
     </div></footer>
