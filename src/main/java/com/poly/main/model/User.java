@@ -1,5 +1,12 @@
 package com.poly.main.model;
 
+import java.io.Serializable;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,19 +22,22 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class User {
-	int id;
+@Entity
+@Table(name = "Users")
+public class User implements Serializable {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	@NotEmpty(message = "{NotEmpty.User.Fullname}")
-	String fullname;
+	private String fullname;
 	@NotEmpty(message = "{NotEmpty.User.Username}")
-	String username;
+	private String username;
 	@NotEmpty(message = "{NotEmpty.User.Password}")
 	@Size(min = 6,message = "{Size.User.Password}")
-	String password;
+	private String password;
 	@NotEmpty(message = "{NotEmpty.User.email}")
 	@Email(message = "{Email.User.email}")
-	String email;
+	private String email;
 	@NotNull(message = "{NotNull.User.admin}")
-	boolean admin;
-	boolean remember;
+	private boolean admin;
 }
