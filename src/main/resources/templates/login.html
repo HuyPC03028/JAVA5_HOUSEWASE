@@ -38,8 +38,8 @@
                 <small id="PasswordId" class="form-text text-muted">Mật khẩu là bắt buộc!</small>
             </div>
             <div class="form-check form-check-inline">
-                <label>
-                    <input type="checkbox" th:field="${user.remember}" value="false">Lưu tài khoản? </label><br> 
+                <input type="checkbox" id="remember" name="remember" th:checked="${rememberValue}" value="true" />
+<label for="remember">Lưu tài khoản?</label><br>
             </div>
         </div>
         <div class="card-footer text-muted">
