@@ -105,17 +105,11 @@ public class mainController {
 		return "redirect:/index";
 	}
 	
-	@GetMapping("/chiTietSanPham")
-	public String chiTietSanPham() {
-		return "chitietsanpham";
-	}
-
-	
 
     @GetMapping("/chiTietSanPham")
     public String showProductDetail(Model model, @RequestParam("productId") int productId) {
         // Lấy thông tin sản phẩm từ cơ sở dữ liệu dựa trên productId
-        Product product = productDAO.findById(productId);
+        Product product = productDAO.findById(productId).get();
         System.out.println(productId);
         String username = sessionService.get("username", "");
         if (username!="") {
