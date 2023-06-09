@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -29,75 +29,117 @@
             <h3>Quản lý kho</h3>
             <a href="/admin">Menu</a>
         </div>
-
-        <ul class="nav nav-tabs mt-4">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tab1">Bảng dữ liệu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2">Nhập thông tin</a>
-            </li>
-        </ul>
-
-        <div class="tab-content mt-2">
-            <div class="tab-pane fade show active" id="tab1">
+        <form th:action="@{/admin/quanLyKho}" method="post">
+            <input name="keywords" th:value="${keywords}">
+            <button>Search</button>
+        </form>
+		<div id="khoTable">
                 <table class="table mt-4">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
                             <th scope="col">Product Name</th>
                             <th scope="col">Quantity</th>
+							<th scope="col">Date</th>
+							<th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Product1</td>
-                            <td>10</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Product2</td>
-                            <td>15</td>
+                        <tr th:each="inventory : ${inventorys}">
+                            <td th:text="${inventory.id}"></td>
+                            <td th:text="${inventory.product.name}"></td>
+                            <td th:text="${inventory.quantity}"></td>
+                            <td th:text="${#temporals.format(inventory.date, 'dd-MM-yyyy')}"></td>
+                            <td>
+                               <a th:href="@{/admin/editKho/{id}(id=${inventory.id})}" class="btn btn-info btn-sm">sửa</a>
+                               <a th:href="@{/admin/deleteKho/{id}(id=${inventory.id})}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Xóa</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation">
+				    <ul class="pagination">
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(0)'">First</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${inventorys.number - 1} + ')'" th:if="${inventorys.number > 0}">Previous</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${inventorys.number + 1} + ')'" th:if="${inventorys.number < inventorys.totalPages - 1}">Next</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${inventorys.totalPages - 1} + ')'" th:if="${inventorys.number < inventorys.totalPages - 1}">Last</a>
+				        </li>
+				    </ul>
+				</nav>
             </div>
-            <div class="tab-pane fade" id="tab2">
-                <div class="row mt-4">
+            
+             <!-- Hiển thị thông báo -->
+					<div th:if="${message}" class="text-center text-danger">
+    					<p th:text="${message}"></p>
+					</div>
+                <div class="row mt-4 d-flex justify-content-center">
                     <div class="col-md-6">
-                        <form>
-                            <div class="form-group">
-                                <label for="inputId">ID:</label>
-                                <input type="text" class="form-control" id="inputId">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputProductId">Product ID:</label>
-                                <input type="text" class="form-control" id="inputProductId">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputQuantity">Quantity:</label>
-                                <input type="text" class="form-control" id="inputQuantity">
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-md-12">
-                                    <button type="submit" class="btn btn-info">thêm</button>
-                                    <button type="submit"  class="btn btn-success ml-2">Sửa</button>
-                                    <button type="submit"  class="btn btn-danger ml-2">Xóa</button>
-                                </div>
-                            </div>
-                        </form>
+                        <form th:action="@{/admin/saveKho}" method="post" th:object="${inventory}">
+						    <div class="form-group">
+						        <label for="inputId">ID:</label>
+						        <input type="text" class="form-control" readonly name="id" id="inputID" th:field="*{id}">
+						    </div>
+						    <div class="form-group">
+						        <label for="inputProductId">Product Name:</label>
+						        <select class="form-control" id="inputProductID" name="product.id" th:field="*{product.id}">
+						            <option th:if="*{product.id != null}" th:value="*{product.id}" th:text="*{product.name}"></option>
+						            <option th:unless="${product != null}" value="0" selected>-- Chọn sản phẩm --</option>
+						            <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
+						        </select>
+						        <div class="alert alert-warning" th:errors="${inventory.product.id}"></div>
+						    </div>
+						    <div class="form-group">
+						        <label for="inputQuantity">Quantity:</label>
+						        <input type="number" class="form-control" id="inputQuantity" th:field="*{quantity}">
+						    	<div class="alert alert-warning" th:errors="${inventory.quantity}"></div>
+						    </div>
+						    
+						    <div class="row mt-2">
+						        <div class="col-md-12">
+						            <button type="submit" class="btn btn-success">thêm</button>
+						        	<a th:href="@{/admin/clearKho}"  class="btn btn-info btn-sm">làm mới</a>
+						        </div>
+						    </div>
+						</form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    </div>
-    </div>
     <footer><div class="logo">
         <h1></h1>
     </div></footer>
+    <script>
+	    function confirmDelete() {
+	        return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+	    }
+	</script>
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+       function loadPage(page) {
+		    $.ajax({
+		        url: '/admin/quanLyKho',
+		        type: 'GET',
+		        data: {
+		            'keywords': '',
+		            'p': page
+		        },
+		        success: function (data) {
+		            $('#khoTable').html($(data).find('#khoTable').html());
+		        },
+		        error: function () {
+		            console.log('Error occurred while loading the page.');
+		        }
+		    });
+		}
+        /*]]>*/
+    </script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->

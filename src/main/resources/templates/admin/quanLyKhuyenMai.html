@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -29,18 +29,11 @@
             <h3>Quản lý khuyến mãi</h3>
             <a href="/admin">Menu</a>
         </div>
-
-        <ul class="nav nav-tabs mt-4">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tab1">Bảng dữ liệu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2">Nhập thông tin</a>
-            </li>
-        </ul>
-
-        <div class="tab-content mt-2">
-            <div class="tab-pane fade show active" id="tab1">
+		<form th:action="@{/admin/quanLyKhuyenMai}" method="post">
+            <input name="keywords" th:value="${keywords}">
+            <button>Search</button>
+        </form>
+     	<div id="discountTable">
                 <table class="table mt-4">
                     <thead>
                         <tr>
@@ -50,40 +43,63 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Product1</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Product2</td>
-                            <td>$5.00</td>
+                        <tr th:each="discount : ${discounts}">
+                            <th th:text="${discount.id}"></th>
+                            <td  th:text="${discount.product.name}"></td>
+                            <td  th:text="${#numbers.formatDecimal(discount.discountAmount, 0, 'COMMA', 0, 'POINT')}"></td>
+                         	<td>
+                               <a th:href="@{/admin/editDiscount/{id}(id=${discount.id})}" class="btn btn-info btn-sm">sửa</a>
+                               <a th:href="@{/admin/deleteDiscount/{id}(id=${discount.id})}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Xóa</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                 <nav aria-label="Page navigation">
+				    <ul class="pagination">
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(0)'">First</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${discounts.number - 1} + ')'" th:if="${discounts.number > 0}">Previous</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${discounts.number + 1} + ')'" th:if="${discounts.number < discounts.totalPages - 1}">Next</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${discounts.totalPages - 1} + ')'" th:if="${discounts.number < discounts.totalPages - 1}">Last</a>
+				        </li>
+				    </ul>
+				</nav>
             </div>
-            <div class="tab-pane fade" id="tab2">
-                <div class="row mt-4">
+                <!-- Hiển thị thông báo -->
+					<div th:if="${message}" class="text-center text-danger">
+    					<p th:text="${message}"></p>
+					</div>
+                <div class="row mt-4 d-flex justify-content-center">
                     <div class="col-md-6">
-                        <form>
+                        <form th:action="@{/admin/saveDiscount}" method="post"  th:object="${discount}">
+                           	<div class="form-group">
+						        <label for="inputFullname">ID:</label>
+						       	<input type="text" class="form-control" readonly name="id" id="inputID" th:field="*{id}">
+						    </div>
                             <div class="form-group">
-                                <label for="inputId">ID:</label>
-                                <input type="text" class="form-control" id="inputId">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputProductId">Product ID:</label>
-                                <input type="text" class="form-control" id="inputProductId">
-                            </div>
+						        <label for="inputProductId">Product Name:</label>
+						        <select class="form-control" id="inputProductID" name="product.id" th:field="*{product.id}">
+						            <option th:if="*{product.id != null}" th:value="*{product.id}" th:text="*{product.name}"></option>
+						            <option th:unless="${product != null}" value="0" selected>-- Chọn sản phẩm --</option>
+						            <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
+						        </select>
+						        <div class="alert alert-warning" th:errors="${discount.product.id}"></div>
+						    </div>
                             <div class="form-group">
                                 <label for="inputDiscountAmount">Discount Amount:</label>
-                                <input type="text" class="form-control" id="inputDiscountAmount">
+                                <input type="number" class="form-control" id="inputDiscountAmount" th:field="*{discountAmount}">
+                                <div class="alert alert-warning" th:errors="${discount.discountAmount}"></div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-12">
-                                    <button type="submit" class="btn btn-info">thêm</button>
-                                    <button type="submit"  class="btn btn-success ml-2">Sửa</button>
-                                    <button type="submit"  class="btn btn-danger ml-2">Xóa</button>
+                                    <button type="submit" class="btn btn-success">thêm</button>
+                                    <a th:href="@{/admin/clearDiscount}"  class="btn btn-info btn-sm">làm mới</a>
                                 </div>
                             </div>
                         </form>
@@ -91,11 +107,34 @@
                 </div>
             </div>
 
-    </div>
-    </div>
     <footer><div class="logo">
         <h1></h1>
     </div></footer>
+    <script>
+	    function confirmDelete() {
+	        return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+	    }
+	</script>
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+       function loadPage(page) {
+		    $.ajax({
+		        url: '/admin/quanLyKhuyenMai',
+		        type: 'GET',
+		        data: {
+		            'keywords': '',
+		            'p': page
+		        },
+		        success: function (data) {
+		            $('#discountTable').html($(data).find('#discountTable').html());
+		        },
+		        error: function () {
+		            console.log('Error occurred while loading the page.');
+		        }
+		    });
+		}
+        /*]]>*/
+    </script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
     <!-- CSS -->
     <link rel="stylesheet" href="http://localhost:8080/css/admin.css">
     <style>
@@ -29,96 +28,131 @@
             <h3>Quản lý sản phẩm</h3>
             <a href="/admin">Menu</a>
         </div>
-
-        <ul class="nav nav-tabs mt-4">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tab1">Bảng dữ liệu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2">Nhập thông tin</a>
-            </li>
-        </ul>
-
-        <div class="tab-content mt-2">
-            <div class="tab-pane fade show active" id="tab1">
+		<form th:action="@{/admin/quanLyProduct}" method="post">
+			<input name="keywords" th:value="${keywords}">
+			<button>Search</button>
+		</form>  
+			<div id="productTable">     
                 <table class="table mt-4">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
-                            <th scope="col">Category ID</th>
+                            <th scope="col">Category</th>
                             <th scope="col">Name</th>
                             <th scope="col">Image</th>
                             <th scope="col">Description</th>
                             <th scope="col">Price</th>
+                            <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>Product 1</td>
-                            <td><img src="path/to/image1.jpg" alt="Product 1" width="100"></td>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td>10.99</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>2</td>
-                            <td>Product 2</td>
-                            <td><img src="path/to/image2.jpg" alt="Product 2" width="100"></td>
-                            <td>Consectetur adipiscing elit</td>
-                            <td>19.99</td>
+                        <tr th:each="product : ${products}">
+                            <td th:text="${product.id}"></td>
+                            <td th:text="${product.category.name}"></td>
+                            <td th:text="${product.name}"></td>
+                            <td><img th:src="@{/image/{imageName}(imageName=${product.image})}" alt="Product Image" width="100"></td>
+                            <td th:text="${product.description}"></td>
+                            <td th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+                            <td>
+                                <a th:href="@{/admin/editProduct/{id}(id=${product.id})}" class="btn btn-info btn-sm">sửa</a>
+                               <a th:href="@{/admin/deleteProduct/{id}(id=${product.id})}" class="btn btn-danger btn-sm" onclick="return confirmDelete()">Xóa</a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                <nav aria-label="Page navigation">
+				    <ul class="pagination">
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(0)'">First</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${products.number - 1} + ')'" th:if="${products.number > 0}">Previous</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${products.number + 1} + ')'" th:if="${products.number < products.totalPages - 1}">Next</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${products.totalPages - 1} + ')'" th:if="${products.number < products.totalPages - 1}">Last</a>
+				        </li>
+				    </ul>
+				</nav>
             </div>
-            <div class="tab-pane fade" id="tab2">
-                <div class="row mt-4">
+             <!-- Hiển thị thông báo -->
+					<div th:if="${message}" class="text-center text-danger">
+    					<p th:text="${message}"></p>
+					</div>
+                <div class="row mt-4 d-flex justify-content-center">
                     <div class="col-md-6">
-                        <form>
-                            <div class="form-group">
-                                <label for="inputID">ID:</label>
-                                <input type="text" class="form-control" id="inputID">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputCategoryID">Category ID:</label>
-                                <input type="text" class="form-control" id="inputCategoryID">
-                            </div>
+                        <form th:action="@{/admin/saveProduct}" method="post"  th:object="${product}" enctype="multipart/form-data" id="myForm">
+                           <div class="form-group">
+						            <label for="inputFullname">ID:</label>
+						            <input type="text" class="form-control" readonly name="id" id="inputID" th:field="*{id}">
+						        </div>
                             <div class="form-group">
                                 <label for="inputName">Name:</label>
-                                <input type="text" class="form-control" id="inputName">
+                                <input type="text" class="form-control" id="inputName" name="name" th:field="*{name}">
+                                <div class="alert alert-warning" th:errors="${product.name}"></div>
                             </div>
                             <div class="form-group">
                                 <label for="inputImage">Image:</label>
-                                <input type="file" class="form-control" id="inputImage">
+                                <input type="file" class="form-control" id="inputImage" name="image">
+                                <div class="alert alert-warning" th:if="${hasMessage}">chưa chọn image!!!</div>
+                                <div  th:unless="${hasMessage}"></div>
                             </div>
-                    </div>
-                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="inputDescription">Description:</label>
-                                <textarea class="form-control" id="inputDescription" rows="5"></textarea>
+                                <textarea class="form-control" id="inputDescription" rows="5" name="description" th:field="*{description}" ></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="inputPrice">Price:</label>
-                                <input type="text" class="form-control" id="inputPrice">
+							    <label for="inputPrice">Price:</label>
+							    <input type="number" class="form-control" id="inputPrice" name="price" th:field="*{price}"  step="0.01">
+							     <div class="alert alert-warning" th:errors="${product.price}"></div>
+							</div>
+                            <div class="form-group">
+                                <label for="inputCategoryID">Category:</label>
+                                <select class="form-control" id="inputCategoryID" name="category.id" th:field="*{category.id}">
+								    <option th:if="*{category.id != null}" th:value="*{category.id}" th:text="*{category.name}"></option>
+    								<option th:unless="${category != null}" value="0" selected>-- Chọn category --</option>
+								    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+								</select>
+								<div class="alert alert-warning" th:errors="${product.category.id}"></div>
                             </div>
-                        </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                               <button type="submit" class="btn btn-info">thêm</button>
-                                    <button type="submit"  class="btn btn-success ml-2">Sửa</button>
-                                    <button type="submit"  class="btn btn-danger ml-2">Xóa</button>
-                            </div>
-                        </div>
-                    </form>
+                            <button type="submit" class="btn btn-success">Lưu</button>
+                            <a th:href="@{/admin/clearProduct}"  class="btn btn-info btn-sm">làm mới</a>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-    <footer><div class="logo">
+ <footer><div class="logo">
         <h1></h1>
     </div></footer>
+    <script>
+	    
+	    function confirmDelete() {
+	        return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+	    }
+	</script>
+
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+       function loadPage(page) {
+		    $.ajax({
+		        url: '/admin/quanLyProduct',
+		        type: 'GET',
+		        data: {
+		            'keywords': '',
+		            'p': page
+		        },
+		        success: function (data) {
+		            $('#productTable').html($(data).find('#productTable').html());
+		        },
+		        error: function () {
+		            console.log('Error occurred while loading the page.');
+		        }
+		    });
+		}
+        /*]]>*/
+    </script>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Bootstrap JS -->

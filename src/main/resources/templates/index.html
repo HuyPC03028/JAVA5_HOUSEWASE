@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -1022,7 +1022,7 @@
 							<span class="regular-price">$59.00</span> <span
 								class="discount-price">$69.00</span>
 							<button class="main-btn" type="submit">
-								<span class="fas fa-shopping-cart">
+								<span class="fas fa-shopping-cart"></span>
 							</button>
 						</div>
 					</div>
@@ -1050,7 +1050,7 @@
 							<span class="regular-price">$59.00</span> <span
 								class="discount-price">$69.00</span>
 							<button class="main-btn" type="submit">
-								<span class="fas fa-shopping-cart">
+								<span class="fas fa-shopping-cart"></span>
 							</button>
 						</div>
 					</div>
@@ -1252,26 +1252,35 @@
 								<th scope="col">Tên sản phẩm</th>
 								<th scope="col">Hình ảnh</th>
 								<th scope="col">Số lượng</th>
-								<th scope="col">Giá</th>
+								<th scope="col">Giá gốc</th>
 								<th scope="col"></th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${users}" var="user" varStatus="status">
-								<tr>
-									<th scope="row">${status.index+1}</th>
-									<td>Touchwood Chair</td>
-									<td><img src="assets/images/product/p-1.jpg" alt=""
+							
+								<tr th:each="cart, iStat : ${carts}">
+									<th th:text="${iStat.index+1}"></th>
+									<td th:text="${cart.product.name}"></td>
+									<td><img th:src="@{/image/{imageName}(imageName=${cart.product.image})}" alt=""
 										height="50"></td>
-									<td><input type="number" id="quantity" name="quantity"
-										min="1" max="100" value="1"></td>
-									<td>$59.00</td>
-									<td><a href="${url}/edit/${user.id}">xóa</a></td>
+									<td th:text="${cart.quantity}"></td>
+									<td  th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+									<td>
+									    <a th:href="@{/admin/deleteCart/{id}(id=${cart.id})}" class="btn btn-danger btn-sm ml-auto" onclick="return confirmDelete()">xóa</a>
+									</td>
 								</tr>
-							</c:forEach>
+							
 						</tbody>
+						
 					</table>
-				</form>
+					<div class="d-flex justify-content-end">
+						<strong>Total Amount: </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
+					</div>
+					<br>
+					<div class="d-flex justify-content-end">
+				        <a th:href="@{/admin/saveCart}" class="btn btn-info btn-sm ml-auto" >Thanh toán</a>
+				    </div>
+	    		</form>
 
 			</div>
 			<!-- contact box -->
@@ -1335,7 +1344,7 @@
 					</div>
 					<div class="col-lg-8">
 						<div class="contact-form">
-							<form id="contact-form" action="assets/contact.php" method="post"
+							<form id="contact-form1" action="assets/contact.php" method="post"
 								data-toggle="validator">
 								<div class="row">
 									<div class="col-lg-6">
@@ -1603,34 +1612,39 @@
 
 
 
-
+ 	
 
 
 
 	<!--====== jquery js ======-->
-	<script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-	<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
 
-	<!--====== Bootstrap js ======-->
-	<script src="assets/js/bootstrap.min.js"></script>
+<!--====== Bootstrap js ======-->
+<script src="assets/js/bootstrap.min.js"></script>
+
+<!--====== Slick js ======-->
+<script src="assets/js/slick.min.js"></script>
+
+<!--====== Magnific Popup js ======-->
+<script src="assets/js/jquery.magnific-popup.min.js"></script>
+
+<!--====== nav js ======-->
+<script src="assets/js/jquery.nav.js"></script>
+
+<!--====== Nice Number js ======-->
+<script src="assets/js/jquery.nice-number.min.js"></script>
+
+<!--====== Main js ======-->
+<script src="assets/js/main.js"></script>
+
+<script>
 
 
-	<!--====== Slick js ======-->
-	<script src="assets/js/slick.min.js"></script>
-
-	<!--====== Magnific Popup js ======-->
-	<script src="assets/js/jquery.magnific-popup.min.js"></script>
-
-
-	<!--====== nav js ======-->
-	<script src="assets/js/jquery.nav.js"></script>
-
-	<!--====== Nice Number js ======-->
-	<script src="assets/js/jquery.nice-number.min.js"></script>
-
-	<!--====== Main js ======-->
-	<script src="assets/js/main.js"></script>
-
+	    
+	    function confirmDelete() {
+	        return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+	    }
+	</script>
 </body>
 
 </html>

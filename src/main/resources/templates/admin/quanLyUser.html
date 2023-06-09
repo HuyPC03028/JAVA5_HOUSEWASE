@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <!-- CSS -->
     <link rel="stylesheet" href="http://localhost:8080/css/admin.css">
+
+
 </head>
 
 <body>
@@ -25,113 +27,150 @@
             <h3>Quản lý tài khoản</h3>
             <a href="/admin">Menu</a>
         </div>
+        <form th:action="@{/admin/quanLyUser}" method="post">
+            <input name="keywords" th:value="${keywords}">
+            <button>Search</button>
+        </form>
+        
 
-        <ul class="nav nav-tabs mt-4">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#tab1">Bảng dữ liệu</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#tab2">Nhập thông tin</a>
-            </li>
-        </ul>
+                <div id="userTable">
+                    <table class="table mt-4">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Fullname</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Admin</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="user : ${users}">
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.fullname}"></td>
+                                <td th:text="${user.username}"></td>
+                                <td th:text="${user.password}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.admin}"></td>
+                                <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}" class="btn btn-primary btn-sm">Sửa</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                     <nav aria-label="Page navigation">
+				    <ul class="pagination">
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(0)'">First</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${users.number - 1} + ')'" th:if="${users.number > 0}">Previous</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${users.number + 1} + ')'" th:if="${users.number < users.totalPages - 1}">Next</a>
+				        </li>
+				        <li class="page-item">
+				            <a class="page-link" href="javascript:void(0)" th:onclick="'loadPage(' + ${users.totalPages - 1} + ')'" th:if="${users.number < users.totalPages - 1}">Last</a>
+				        </li>
+				    </ul>
+				</nav>
+                </div>
+               
 
-        <div class="tab-content mt-2">
-            <div class="tab-pane fade show active" id="tab1" >
-                <table class="table mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Fullname</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Admin</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="user : ${users}">
-				            <td th:text="${user.id}"></td>
-				            <td th:text="${user.fullname}"></td>
-				            <td th:text="${user.username}"></td>
-				            <td th:text="${user.password}"></td>
-				            <td th:text="${user.email}"></td>
-				            <td th:text="${user.admin}"></td>
-				            <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}" class="btn btn-primary btn-sm">Sửa</a></td>
-        				</tr>
-                    </tbody>
-                </table>
-            </div>
 
-            <div class="tab-pane fade" id="tab2" th:classappend="${activeTab == 'tab2'} ? 'show active' : ''">
-                <div class="row mt-4">
-                	<form th:action="@{/admin/saveUser}" method="post" th:object="${user}">
-                    	<div class="row mt-4">
-						    <div class="col-md-6">
-						    <div class="form-group">
-						            <label for="inputFullname">ID:</label>
-						            <input type="text" class="form-control" id="inputID" th:field="*{id}">
-						        </div>
-						        <div class="form-group">
-						            <label for="inputFullname">Fullname:</label>
-						            <input type="text" class="form-control" id="inputFullname" th:field="*{fullname}">
-						            <div class="alert alert-warning" th:errors="${user.fullname}"></div>
-						        </div>
-						        <div class="form-group">
-						            <label for="inputEmail">Email:</label>
-						            <input type="email" class="form-control" id="inputEmail" th:field="*{email}">
-						             <div class="alert alert-warning" th:errors="${user.email}"></div>
-						        </div>
-						    </div>
-						    <div class="col-md-6">
-						        <div class="form-group">
-						            <label for="inputUser">User:</label>
-						            <input type="text" class="form-control" id="inputUser" th:field="*{username}">
-						            <div class="alert alert-warning" th:errors="${user.username}"></div>
-						        </div>
-						        <div class="form-group">
-						            <label for="inputPassword">Password:</label>
-						            <input type="text" class="form-control" id="inputPassword" th:field="*{password}">
-						            <div class="alert alert-warning" th:errors="${user.password}"></div>
-						        </div>
-						        <div class="form-group">
-						            <label for="inputAdmin">Admin:</label>
-						            <div class="form-check">
-						                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminYes" value="yes"
-						                       th:field="${user.admin}" th:checked="${user.admin == 'yes'}">
-						                <label class="form-check-label" for="inputAdminYes">
-						                    Yes
-						                </label>
-						            </div>
-						            <div class="form-check">
-						                <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminNo" value="no"
-						                       th:field="${user.admin}" th:checked="${user.admin == 'no'}">
-						                <label class="form-check-label" for="inputAdminNo">
-						                    No
-						                </label>
-						            </div>
-						        </div>
-						    </div>
-						</div>
-						<div class="row mt-2">
-                        	<div class="col-md-12">
-	                           <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
-	                            <a th:href="@{/admin/deleteUser/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Xóa</a>
-	                     	</div>
-	                    </div>
+            
+                <!-- Hiển thị thông báo -->
+                <div th:if="${message}" class="text-center text-danger">
+                    <p th:text="${message}"></p>
+                </div>
+                <div class="row mt-4 d-flex justify-content-center">
+                    <form th:action="@{/admin/saveUser}" method="post" th:object="${user}">
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="inputFullname">ID:</label>
+                                    <input type="text" class="form-control" readonly name="id" id="inputID" th:field="*{id}">
+                                    <div th:if="${error}" class="text-center text-danger">
+                                        <p th:text="${error}"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputFullname">Fullname:</label>
+                                    <input type="text" class="form-control" id="inputFullname" th:field="*{fullname}">
+                                    <div class="alert alert-warning" th:errors="${user.fullname}"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail">Email:</label>
+                                    <input type="email" class="form-control" id="inputEmail" th:field="*{email}">
+                                    <div class="alert alert-warning" th:errors="${user.email}"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="inputUser">User:</label>
+                                    <input type="text" class="form-control" id="inputUser" th:field="*{username}">
+                                    <div class="alert alert-warning" th:errors="${user.username}"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputPassword">Password:</label>
+                                    <input type="text" class="form-control" id="inputPassword" th:field="*{password}">
+                                    <div class="alert alert-warning" th:errors="*{password}"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputAdmin">Admin:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminYes" value="yes"
+                                            th:field="${user.admin}" th:checked="${user.admin == 'yes'}">
+                                        <label class="form-check-label" for="inputAdminYes">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inputAdmin" id="inputAdminNo" value="no"
+                                            th:field="${user.admin}" th:checked="${user.admin == 'no'}">
+                                        <label class="form-check-label" for="inputAdminNo">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+                                <a th:href="@{/admin/deleteUser/{id}(id=${user.id})}" class="btn btn-danger btn-sm">Xóa</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
-            </div>
+            </div> 
+    <footer>
+        <div class="logo">
+            <h1></h1>
         </div>
-        </div>
-    <footer><div class="logo">
-        <h1></h1>
-    </div></footer>
-    <!-- jQuery -->
+    </footer>
+</body>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-</body>
-
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+       function loadPage(page) {
+		    $.ajax({
+		        url: '/admin/quanLyUser',
+		        type: 'GET',
+		        data: {
+		            'keywords': '',
+		            'p': page
+		        },
+		        success: function (data) {
+		            $('#userTable').html($(data).find('#userTable').html());
+		        },
+		        error: function () {
+		            console.log('Error occurred while loading the page.');
+		        }
+		    });
+		}
+        /*]]>*/
+    </script>
 </html>
