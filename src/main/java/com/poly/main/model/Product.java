@@ -46,5 +46,7 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
+
+
     // Constructors, getters, and setters
 }
