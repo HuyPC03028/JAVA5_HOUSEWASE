@@ -128,7 +128,6 @@
 								<br>
 								<br>
 									<h2 th:text="${product.name}"></h2>
-									<br>
 									<h5 data-animation="fadeInUp" th:text="${product.description}"></h5>
 									<div class="single-product-items">
 										<div class="product-item-content text-left mt-30">
@@ -198,9 +197,9 @@
 									<div class="col-md-3" th:each="item : ${products}">
                                         <div class="single-product-items">	
 										<div class="product-item-image">
-											<img class="img-fluid w-100"
+										<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img class="img-fluid w-100"
 												th:src="@{'/image/'+${item.image}}" alt="" height="150px"
-												width="95%">
+												width="95%"></a>
 											<div class="product-discount-tag">
 												<p>-40%</p>
 											</div>
@@ -213,12 +212,7 @@
 												<li><i class="lni-star-filled"></i></li>
 												<li><i class="lni-star-filled"></i></li>
 											</ul>
-											<span class="regular-price" th:text="${item.price}"></span> <span
-												class="discount-price" th:text="${item.price}"></span> <a
-												class="main-btn" type="submit"
-												th:href="@{/chiTietSanPham(productId=${item.id})}"> <span
-												class="fas fa-shopping-cart"></span>
-											</a>
+											<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
 										</div>
 									</div>
 									<!-- single product items -->
@@ -234,127 +228,25 @@
 						aria-labelledby="v-pills-decorative-tab">
 						<div class="product-items mt-30">
 							<div class="row product-items-active">
-								<div class="col-md-3">
-									<div class="single-product-items">
+								<div class="col-md-3" th:each="item : ${products}">
+                                        <div class="single-product-items">	
 										<div class="product-item-image">
-											<a href="#"><img src="assets/images/product/p-1.jpg"
-												alt="Product"></a>
+											<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img class="img-fluid w-100"
+												th:src="@{'/image/'+${item.image}}" alt="" height="150px"
+												width="95%"></a>
 											<div class="product-discount-tag">
-												<p>-60%</p>
+												<p>-40%</p>
 											</div>
 										</div>
 										<div class="product-item-content text-center mt-30">
-											<h5 class="product-title">
-												<a href="#">Touchwood Chair</a>
-											</h5>
+											<h5 class="product-title" th:text="${item.name}"></h5>
 											<ul class="rating">
 												<li><i class="lni-star-filled"></i></li>
 												<li><i class="lni-star-filled"></i></li>
 												<li><i class="lni-star-filled"></i></li>
 												<li><i class="lni-star-filled"></i></li>
 											</ul>
-											<span class="regular-price">$59.00</span> <span
-												class="discount-price">$69.00</span>
-										</div>
-									</div>
-									<!-- single product items -->
-								</div>
-								<div class="col-md-3">
-									<div class="single-product-items">
-										<div class="product-item-image">
-											<a href="#"><img src="assets/images/product/p-2.jpg"
-												alt="Product"></a>
-											<div class="product-discount-tag">
-												<p>-60%</p>
-											</div>
-										</div>
-										<div class="product-item-content text-center mt-30">
-											<h5 class="product-title">
-												<a href="#">Touchwood Chair</a>
-											</h5>
-											<ul class="rating">
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-											</ul>
-											<span class="regular-price">$59.00</span> <span
-												class="discount-price">$69.00</span>
-										</div>
-									</div>
-									<!-- single product items -->
-								</div>
-								<div class="col-md-3">
-									<div class="single-product-items">
-										<div class="product-item-image">
-											<a href="#"><img src="assets/images/product/p-3.jpg"
-												alt="Product"></a>
-											<div class="product-discount-tag">
-												<p>-60%</p>
-											</div>
-										</div>
-										<div class="product-item-content text-center mt-30">
-											<h5 class="product-title">
-												<a href="#">Touchwood Chair</a>
-											</h5>
-											<ul class="rating">
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-											</ul>
-											<span class="regular-price">$59.00</span> <span
-												class="discount-price">$69.00</span>
-										</div>
-									</div>
-									<!-- single product items -->
-								</div>
-								<div class="col-md-3">
-									<div class="single-product-items">
-										<div class="product-item-image">
-											<a href="#"><img src="assets/images/product/p-1.jpg"
-												alt="Product"></a>
-											<div class="product-discount-tag">
-												<p>-60%</p>
-											</div>
-										</div>
-										<div class="product-item-content text-center mt-30">
-											<h5 class="product-title">
-												<a href="#">Touchwood Chair</a>
-											</h5>
-											<ul class="rating">
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-											</ul>
-											<span class="regular-price">$59.00</span> <span
-												class="discount-price">$69.00</span>
-										</div>
-									</div>
-									<!-- single product items -->
-								</div>
-								<div class="col-md-3">
-									<div class="single-product-items">
-										<div class="product-item-image">
-											<a href="#"><img src="assets/images/product/p-2.jpg"
-												alt="Product"></a>
-											<div class="product-discount-tag">
-												<p>-60%</p>
-											</div>
-										</div>
-										<div class="product-item-content text-center mt-30">
-											<h5 class="product-title">
-												<a href="#">Touchwood Chair</a>
-											</h5>
-											<ul class="rating">
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-												<li><i class="lni-star-filled"></i></li>
-											</ul>
-											<span class="regular-price">$59.00</span> <span
-												class="discount-price">$69.00</span>
+											<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
 										</div>
 									</div>
 									<!-- single product items -->

@@ -30,14 +30,10 @@ import com.poly.main.model.Category;
 import com.poly.main.model.Product;
 import com.poly.main.model.User;
 
-
-
-
-
-
 import com.poly.main.service.CookieService;
 import com.poly.main.service.ParamService;
 import com.poly.main.service.SessionService;
+
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -68,20 +64,53 @@ public class mainController {
 	
 
 	@GetMapping("/index")
-	public String index(Model model, HttpSession session) {
+	public String index(Model model, HttpSession session,@RequestParam("keywords") Optional<String> kw,
+			@RequestParam("p") Optional<Integer> p) {
 	    String username = sessionService.get("username", "");
         System.out.println("session: " + username);
-		List<Product> product = dao.findAll();
+		
 		if (username!="") {
 			model.addAttribute("loggedIn", true);
 		}else {
 			model.addAttribute("loggedIn", false);
 		}
-		model.addAttribute("products", product);
+		
+		String kwords = kw.orElse(sessionService.get("keywords", ""));
+		sessionService.set("keywords", kwords);
+		model.addAttribute("keywords", sessionService.get("keywords", ""));
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 12);
+		Page<Product> products = dao.findByKeywords("%" + kwords + "%", pageable);
+		model.addAttribute("products",products);
+		
+		List<Product> dogiadung = dao.findByCategory(1);
+		model.addAttribute("dogiadung",dogiadung);
+		
+		List<Product> tuLanh = dao.findByCategory(2);
+		model.addAttribute("tulanh",tuLanh);
+		
+		List<Product> bepdien = dao.findByCategory(3);
+		model.addAttribute("bepdien",bepdien);
+		
+		List<Product> maysaychen = dao.findByCategory(1003);
+		model.addAttribute("maysaychen",maysaychen);
+		
+		List<Product> bepga = dao.findByCategory(4);
+		model.addAttribute("bepga",bepga);
+				
+		List<Product> ghe = dao.findByCategory(1004);
+		model.addAttribute("ghe",ghe);
+		
         model.addAttribute("username", username);
         
         Cart cart = new Cart();
 		model.addAttribute("cart",cart);
+		Integer userId = sessionService.get("usernameId");
+		
+		if (userId != null) {
+		    User user = userDao.findById(userId).get();
+		    model.addAttribute("account",user);
+		}
 		
 		List<Cart> carts = cartDao.findByUserUsername(username);
 		model.addAttribute("carts",carts);
@@ -94,6 +123,7 @@ public class mainController {
 		}
 
 		model.addAttribute("totalPrice", totalPrice);
+		
 		
 		return "index";
 	}
@@ -118,6 +148,23 @@ public class mainController {
 		return "redirect:/index";
 	}
 
+	
+	@RequestMapping("/saveProfile")
+	public String savaProfile(@Valid User user, BindingResult result, Model model) {
+		String id = paramService.getString("id", "");
+		String uid = String.valueOf(user.getId());
+		if (uid.equals(id)) {
+			sessionService.set("error", "ID đã tồn tại!!!");
+		}
+		if(result.hasErrors()){
+			model.addAttribute("message", "Cập nhật thất bại!");
+			
+			return "redirect:/index";
+        }
+		
+		userDao.save(user);
+		return "redirect:/index";
+	}
     @GetMapping("/chiTietSanPham")
     public String showProductDetail(Model model, @RequestParam("productId") int productId) {
         // Lấy thông tin sản phẩm từ cơ sở dữ liệu dựa trên productId

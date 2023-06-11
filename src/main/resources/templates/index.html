@@ -295,6 +295,8 @@
 
 	<!--====== PRODUCT PART START ======-->
 
+	<!--====== PRODUCT PART START ======-->
+
 	<section id="product" class="product-area pt-100 pb-130">
 		<div class="container">
 			<div class="row">
@@ -305,17 +307,17 @@
 							role="tablist" aria-orientation="vertical">
 							<a class="active" id="v-pills-furniture-tab" data-toggle="pill"
 								href="#v-pills-furniture" role="tab"
-								aria-controls="v-pills-furniture" aria-selected="true">Đồ
-								gia dụng</a> <a id="v-pills-decorative-tab" data-toggle="pill"
+								aria-controls="v-pills-furniture" aria-selected="true" >Đồ
+								gia dụng</a> <a  id="v-pills-decorative-tab" data-toggle="pill"
 								href="#v-pills-decorative" role="tab"
 								aria-controls="v-pills-decorative" aria-selected="false">Tủ
-								lạnh</a> <a id="v-pills-lighting-tab" data-toggle="pill"
+								lạnh</a> <a  id="v-pills-lighting-tab"  data-toggle="pill"
 								href="#v-pills-lighting" role="tab"
 								aria-controls="v-pills-lighting" aria-selected="false">Bếp
-								điện từ</a> <a id="v-pills-outdoor-tab" data-toggle="pill"
+								điện từ</a> <a  id="v-pills-outdoor-tab" data-toggle="pill"
 								href="#v-pills-outdoor" role="tab"
 								aria-controls="v-pills-outdoor" aria-selected="false">Máy
-								sấy chén</a> <a id="v-pills-storage-tab" data-toggle="pill"
+								sấy chén</a> <a  id="v-pills-storage-tab" data-toggle="pill"
 								href="#v-pills-storage" role="tab"
 								aria-controls="v-pills-storage" aria-selected="false">Bếp
 								Gas</a> <a id="v-pills-storage-tab" data-toggle="pill"
@@ -333,18 +335,18 @@
 							role="tabpanel" aria-labelledby="v-pills-furniture-tab">
 							<div class="product-items mt-30">
 								<div class="row product-items-active">
-									<div class="col-md-4">
+									<div class="col-md-4" th:each="item : ${dogiadung}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-1.jpg"
-													alt="Product"></a>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}" 
+													alt="" height="304px" ></a>
 												<div class="product-discount-tag">
 													<p>-60%</p>
 												</div>
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a href="/chitietsanpham">Ghế nội thất</a>
+													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -352,8 +354,9 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price">299000đ</span> <span
-													class="discount-price">350000đ</span>
+												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+												
+												
 											</div>
 										</div>
 										<!-- single product items -->
@@ -469,18 +472,18 @@
 							aria-labelledby="v-pills-decorative-tab">
 							<div class="product-items mt-30">
 								<div class="row product-items-active">
-									<div class="col-md-4">
+									<div class="col-md-4" th:each="item : ${tulanh}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-1.jpg"
-													alt="Product"></a>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
+													alt="" height="304px" width="95%"></a>
 												<div class="product-discount-tag">
 													<p>-60%</p>
 												</div>
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a href="#">Touchwood Chair</a>
+													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -488,8 +491,8 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price">$59.00</span> <span
-													class="discount-price">$69.00</span>
+												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+												
 											</div>
 										</div>
 										<!-- single product items -->
@@ -600,23 +603,22 @@
 							<!-- product items -->
 						</div>
 						<!-- tab pane -->
-
 						<div class="tab-pane fade" id="v-pills-lighting" role="tabpanel"
 							aria-labelledby="v-pills-lighting-tab">
 							<div class="product-items mt-30">
 								<div class="row product-items-active">
-									<div class="col-md-4">
+									<div class="col-md-4" th:each="item : ${bepdien}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-1.jpg"
-													alt="Product"></a>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
+													alt="" height="304px" width="95%"></a>
 												<div class="product-discount-tag">
 													<p>-60%</p>
 												</div>
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a href="#">Touchwood Chair</a>
+													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -624,8 +626,8 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price">$59.00</span> <span
-													class="discount-price">$69.00</span>
+												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+												
 											</div>
 										</div>
 										<!-- single product items -->
@@ -741,18 +743,18 @@
 							aria-labelledby="v-pills-outdoor-tab">
 							<div class="product-items mt-30">
 								<div class="row product-items-active">
-									<div class="col-md-4">
+									<div class="col-md-4" th:each="item : ${bepga}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-1.jpg"
-													alt="Product"></a>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
+													alt="" height="304px" width="95%"></a>
 												<div class="product-discount-tag">
 													<p>-60%</p>
 												</div>
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a href="#">Touchwood Chair</a>
+													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -760,8 +762,8 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price">$59.00</span> <span
-													class="discount-price">$69.00</span>
+												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+												
 											</div>
 										</div>
 										<!-- single product items -->
@@ -877,18 +879,18 @@
 							aria-labelledby="v-pills-storage-tab">
 							<div class="product-items mt-30">
 								<div class="row product-items-active">
-									<div class="col-md-4">
+									<div class="col-md-4" th:each="item : ${maysaychen}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-1.jpg"
-													alt="Product"></a>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
+													alt="" height="304px" width="95%"></a>
 												<div class="product-discount-tag">
 													<p>-60%</p>
 												</div>
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a href="#">Touchwood Chair</a>
+													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -896,8 +898,8 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price">$59.00</span> <span
-													class="discount-price">$69.00</span>
+												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+												
 											</div>
 										</div>
 										<!-- single product items -->
@@ -984,6 +986,143 @@
 							<!-- product items -->
 						</div>
 						<!-- tab pane -->
+					<div class="col-lg-9 col-md-8">
+					<div class="tab-content" id="v-pills-tabContent">
+						<div class="tab-pane fade" id="v-pills-storage"
+							role="tabpanel" aria-labelledby="v-pills-storage-tab">
+							<div class="product-items mt-30">
+								<div class="row product-items-active">
+									<div class="col-md-4" th:each="item : ${ghe}">
+										<div class="single-product-items">
+											<div class="product-item-image">
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
+													alt="" height="304px" width="95%"></a>
+												<div class="product-discount-tag">
+													<p>-60%</p>
+												</div>
+											</div>
+											<div class="product-item-content text-center mt-30">
+												<h5 class="product-title">
+													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
+												</h5>
+												<ul class="rating">
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+												</ul>
+												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+												
+											</div>
+										</div>
+										<!-- single product items -->
+									</div>
+									<div class="col-md-4">
+										<div class="single-product-items">
+											<div class="product-item-image">
+												<a href="#"><img src="assets/images/product/p-2.jpg"
+													alt="Product"></a>
+												<div class="product-discount-tag">
+													<p>-20%</p>
+												</div>
+											</div>
+											<div class="product-item-content text-center mt-30">
+												<h5 class="product-title">
+													<a href="#">Touchwood Chair</a>
+												</h5>
+												<ul class="rating">
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+												</ul>
+												<span class="regular-price">$129.00</span> <span
+													class="discount-price">$159.00</span>
+											</div>
+										</div>
+										<!-- single product items -->
+									</div>
+									<div class="col-md-4">
+										<div class="single-product-items">
+											<div class="product-item-image">
+												<a href="#"><img src="assets/images/product/p-3.jpg"
+													alt="Product"></a>
+												<div class="product-discount-tag">
+													<p>-10%</p>
+												</div>
+											</div>
+											<div class="product-item-content text-center mt-30">
+												<h5 class="product-title">
+													<a href="#">Classic Wardrobe</a>
+												</h5>
+												<ul class="rating">
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star"></i></li>
+												</ul>
+												<span class="regular-price">$89.00</span> <span
+													class="discount-price">$129.00</span>
+											</div>
+										</div>
+										<!-- single product items -->
+									</div>
+									<div class="col-md-4">
+										<div class="single-product-items">
+											<div class="product-item-image">
+												<a href="#"><img src="assets/images/product/p-1.jpg"
+													alt="Product"></a>
+												<div class="product-discount-tag">
+													<p>-60%</p>
+												</div>
+											</div>
+											<div class="product-item-content text-center mt-30">
+												<h5 class="product-title">
+													<a href="#">Touchwood Chair</a>
+												</h5>
+												<ul class="rating">
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+												</ul>
+												<span class="regular-price">$59.00</span> <span
+													class="discount-price">$69.00</span>
+											</div>
+										</div>
+										<!-- single product items -->
+									</div>
+									<div class="col-md-4">
+										<div class="single-product-items">
+											<div class="product-item-image">
+												<a href="#"><img src="assets/images/product/p-2.jpg"
+													alt="Product"></a>
+												<div class="product-discount-tag">
+													<p>-60%</p>
+												</div>
+											</div>
+											<div class="product-item-content text-center mt-30">
+												<h5 class="product-title">
+													<a href="#">Touchwood Chair</a>
+												</h5>
+												<ul class="rating">
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+												</ul>
+												<span class="regular-price">$59.00</span> <span
+													class="discount-price">$69.00</span>
+											</div>
+										</div>
+										<!-- single product items -->
+									</div>
+								</div>
+								<!-- row -->
+							</div>
+							<!-- product items -->
+						</div>
+						<!-- tab pane -->
 					</div>
 					<!-- tab content -->
 				</div>
@@ -995,52 +1134,68 @@
 
 	<!--====== PRODUCT PART ENDS ======-->
 
-	<div class="containner">
-		<div class="product-items mt-30">
-			<div class="row ">
-				<div class="col-md-3" th:each="item : ${products}">
-					<div class="single-product-items">
-						<div class="product-item-image">
-							<img class="img-fluid w-100"
-								th:src="@{'/image/'+${item.image}}" alt="" height="150px"
-								width="95%">
-							<div class="product-discount-tag">
+	<!--====== PRODUCT PART ENDS ======-->
 
-								<p>-40%</p>
+	<div class="containner">
+		<div id="productTable">
+			<div class="product-items mt-30">
+				<div class="row ">
+					<div class="col-md-3" th:each="item : ${products}">
+						<div class="single-product-items">
+							<div class="product-item-image">
+									<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img class="img-fluid w-100"
+									th:src="@{'/image/'+${item.image}}"  alt="" height="150px"
+									width="95%"></a>
+								<div class="product-discount-tag">
+
+									<p>-40%</p>
+
+								</div>
+							</div>
+
+							<div class="product-item-content text-center mt-30">
+								<h5 class="product-title" th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></h5>
+								<ul class="rating">
+									<li><i class="lni-star-filled"></i></li>
+									<li><i class="lni-star-filled"></i></li>
+									<li><i class="lni-star-filled"></i></li>
+									<li><i class="lni-star-filled"></i></li>
+								</ul>
+								<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ 
+									
 
 							</div>
 						</div>
-
-						<div class="product-item-content text-center mt-30">
-							<h5 class="product-title" th:text="${item.name}"></h5>
-							<ul class="rating">
-								<li><i class="lni-star-filled"></i></li>
-								<li><i class="lni-star-filled"></i></li>
-								<li><i class="lni-star-filled"></i></li>
-								<li><i class="lni-star-filled"></i></li>
-							</ul>
-
-
-							
-
-							<span class="regular-price" th:text="${item.price}"></span> <span
-								class="discount-price" th:text="${item.price}"></span> <a
-								class="main-btn" type="submit"
-								th:href="@{/chiTietSanPham(productId=${item.id})}"> <span
-								class="fas fa-shopping-cart"></span>
-							</a>
-
-						</div>
+						<!-- single product items -->
 					</div>
+
 					<!-- single product items -->
+
 				</div>
-
-				<!-- single product items -->
-
+				<!-- row -->
 			</div>
-			<!-- row -->
+			<!-- product items -->
 		</div>
-		<!-- product items -->
+		
+		<div class="d-flex justify-content-center"> <nav aria-label="Page navigation "  >
+			<ul class="pagination">
+				<li class="page-item"><a class="page-link"
+					href="javascript:void(0)" th:onclick="'loadPage(0)'">First</a></li>
+				<li class="page-item"><a class="page-link"
+					href="javascript:void(0)"
+					th:onclick="'loadPage(' + ${products.number - 1} + ')'"
+					th:if="${products.number > 0}">Previous</a></li>
+				<li class="page-item"><a class="page-link"
+					href="javascript:void(0)"
+					th:onclick="'loadPage(' + ${products.number + 1} + ')'"
+					th:if="${products.number < products.totalPages - 1}">Next</a></li>
+				<li class="page-item"><a class="page-link"
+					href="javascript:void(0)"
+					th:onclick="'loadPage(' + ${products.totalPages - 1} + ')'"
+					th:if="${products.number < products.totalPages - 1}">Last</a></li>
+			</ul>
+		</nav>
+		</div>
 	</div>
 	<!--===== Cart ======-->
 
@@ -1071,30 +1226,35 @@
 							</tr>
 						</thead>
 						<tbody>
-							
-								<tr th:each="cart, iStat : ${carts}">
-									<th th:text="${iStat.index+1}"></th>
-									<td th:text="${cart.product.name}"></td>
-									<td><img th:src="@{/image/{imageName}(imageName=${cart.product.image})}" alt=""
-										height="50"></td>
-									<td th:text="${cart.quantity}"></td>
-									<td  th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
-									<td>
-									    <a th:href="@{/admin/deleteCart/{id}(id=${cart.id})}" class="btn btn-danger btn-sm ml-auto" onclick="return confirmDelete()">xóa</a>
-									</td>
-								</tr>
-							
+
+							<tr th:each="cart, iStat : ${carts}">
+								<th th:text="${iStat.index+1}"></th>
+								<td th:text="${cart.product.name}"></td>
+								<td><img
+									th:src="@{/image/{imageName}(imageName=${cart.product.image})}"
+									alt="" height="50"></td>
+								<td th:text="${cart.quantity}"></td>
+								<td
+									th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+								<td><a th:href="@{/admin/deleteCart/{id}(id=${cart.id})}"
+									class="btn btn-danger btn-sm ml-auto"
+									onclick="return confirmDelete()">xóa</a></td>
+							</tr>
+
 						</tbody>
-						
+
 					</table>
 					<div class="d-flex justify-content-end">
-						<strong>Total Amount: </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
+						<strong>Total Amount: </strong><span
+							th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b>
+							vnđ</b>
 					</div>
 					<br>
 					<div class="d-flex justify-content-end">
-				        <a th:href="@{#}" class="btn btn-info btn-sm ml-auto" >Thanh toán</a>
-				    </div>
-	    		</form>
+						<a th:href="@{/admin/saveCart}"
+							class="btn btn-info btn-sm ml-auto">Thanh toán</a>
+					</div>
+				</form>
 
 			</div>
 			<!-- contact box -->
@@ -1158,12 +1318,13 @@
 					</div>
 					<div class="col-lg-8">
 						<div class="contact-form">
-							<form id="contact-form1" action="assets/contact.php" method="post"
+							<form id="contact-form1" th:action="@{/saveProfile}" method="post"
 								data-toggle="validator">
 								<div class="row">
-									<div class="col-lg-6">
+								<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="text" name="name"
+											<input type="text" name="id" th:if="${account != null}"
+       											th:field="${account.id}" readonly
 												placeholder="Nhập vào tên đăng nhập"
 												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
@@ -1172,29 +1333,43 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="email" name="email" placeholder="Nhập vào email"
-												data-error="Valid email is required." required="required">
+											<input type="text" name="username" th:if="${account != null}"
+       											th:field="${account.username}"
+												placeholder="Nhập vào tên đăng nhập"
+												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
 										<!-- single form -->
 									</div>
 									<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="password" name="password"
-												placeholder="Nhập vào mật khẩu"
+											<input type="email" name="email" th:if="${account != null}"
+       											th:field="${account.email}"  placeholder="Nhập vào email"
+												data-error="Valid email is required." required="required">
+											<div class="help-block with-errors"></div>
+										</div>
+										<!-- single form -->
+									</div>
+<div class="col-lg-6">
+										<div class="single-form form-group">
+											<input type="text" name="password" 
+												placeholder="Nhập vào mật khẩu" th:if="${account != null}"
+       											th:field="${account.password}"
 												data-error="Valid password is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
 										<!-- single form -->
 									</div>
 									<div class="col-lg-6">
-										<div class="single-form form-group">
-											<input type="phone" name="phone"
-												placeholder="Nhập vào số điện thoại"
-												data-error="Valid phone is required." required="required">
+									<div class="single-form form-group">
+											<input type="text" name="fullname" 
+												placeholder="Nhập vào tên đăng nhập"
+												th:if="${account != null}"
+       											th:field="${account.fullname}"
+												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
-										<!-- single form -->
+											<!-- single form -->
 									</div>
 									<p class="form-message"></p>
 									<div class="col-lg-12">
@@ -1426,38 +1601,56 @@
 
 
 
- 	
+
 
 
 
 	<!--====== jquery js ======-->
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
 
-<!--====== Bootstrap js ======-->
-<script src="assets/js/bootstrap.min.js"></script>
+	<!--====== Bootstrap js ======-->
+	<script src="assets/js/bootstrap.min.js"></script>
 
-<!--====== Slick js ======-->
-<script src="assets/js/slick.min.js"></script>
+	<!--====== Slick js ======-->
+	<script src="assets/js/slick.min.js"></script>
 
-<!--====== Magnific Popup js ======-->
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<!--====== Magnific Popup js ======-->
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
 
-<!--====== nav js ======-->
-<script src="assets/js/jquery.nav.js"></script>
+	<!--====== nav js ======-->
+	<script src="assets/js/jquery.nav.js"></script>
 
-<!--====== Nice Number js ======-->
-<script src="assets/js/jquery.nice-number.min.js"></script>
+	<!--====== Nice Number js ======-->
+	<script src="assets/js/jquery.nice-number.min.js"></script>
 
-<!--====== Main js ======-->
-<script src="assets/js/main.js"></script>
+	<!--====== Main js ======-->
+	<script src="assets/js/main.js"></script>
 
-<script>
-
-
-	    
-	    function confirmDelete() {
-	        return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
-	    }
+	<script>
+		function confirmDelete() {
+			return confirm("Bạn có chắc chắn muốn xóa sản phẩm này?");
+		}
+	</script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		function loadPage(page) {
+			$.ajax({
+				url : '/index',
+				type : 'GET',
+				data : {
+					'keywords' : '',
+					'p' : page
+				},
+				success : function(data) {
+					$('#productTable').html(
+							$(data).find('#productTable').html());
+				},
+				error : function() {
+					console.log('Error occurred while loading the page.');
+				}
+			});
+		}
+		/*]]>*/
 	</script>
 </body>
 
