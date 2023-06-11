@@ -86,6 +86,8 @@
 										Phẩm</a></li>
 								<li class="nav-item"><a data-scroll-nav="0" href="#cart">Giỏ
 										hàng</a></li>
+								<li class="nav-item"><a data-scroll-nav="0" href="#order">Đơn
+										hàng</a></li>
 								<li class="nav-item"><a data-scroll-nav="0" href="#profile">Hồ
 										sơ</a></li>
 								<li class="nav-item"><a data-scroll-nav="0" href="#contact">Liên
@@ -1197,7 +1199,7 @@
 		</nav>
 		</div>
 	</div>
-	<!--===== Cart ======-->
+<!--===== Cart ======-->
 
 
 	<section id="cart" class="contact-area pt-115">
@@ -1226,35 +1228,80 @@
 							</tr>
 						</thead>
 						<tbody>
-
-							<tr th:each="cart, iStat : ${carts}">
-								<th th:text="${iStat.index+1}"></th>
-								<td th:text="${cart.product.name}"></td>
-								<td><img
-									th:src="@{/image/{imageName}(imageName=${cart.product.image})}"
-									alt="" height="50"></td>
-								<td th:text="${cart.quantity}"></td>
-								<td
-									th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
-								<td><a th:href="@{/admin/deleteCart/{id}(id=${cart.id})}"
-									class="btn btn-danger btn-sm ml-auto"
-									onclick="return confirmDelete()">xóa</a></td>
-							</tr>
-
+							
+								<tr th:each="cart, iStat : ${carts}">
+									<th th:text="${iStat.index+1}"></th>
+									<td th:text="${cart.product.name}"></td>
+									<td><img th:src="@{/image/{imageName}(imageName=${cart.product.image})}" alt=""
+										height="50"></td>
+									<td th:text="${cart.quantity}"></td>
+									<td  th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+									<td>
+									    <a th:href="@{/user/deleteCart/{id}(id=${cart.id})}" class="btn btn-danger btn-sm ml-auto" onclick="return confirmDelete()">xóa</a>
+									</td>
+								</tr>
+							
 						</tbody>
-
+						
 					</table>
 					<div class="d-flex justify-content-end">
-						<strong>Total Amount: </strong><span
-							th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b>
-							vnđ</b>
+						<strong>Total Amount: </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
 					</div>
 					<br>
 					<div class="d-flex justify-content-end">
-						<a th:href="@{/admin/saveCart}"
-							class="btn btn-info btn-sm ml-auto">Thanh toán</a>
+				        <a th:href="@{/saveOrder}" data-toggle="modal" data-target="#cartModal"
+       class="btn btn-info btn-sm ml-auto" >Thanh toán</a>
+				    </div>
+	    		</form>
+
+			</div>
+			<!-- contact box -->
+		</div>
+		<!-- container -->
+	</section>
+
+	<!--===== Cart END ======-->
+	<!--===== Order ======-->
+
+
+	<section id="order" class="contact-area pt-115">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6">
+					<div class="contact-title text-center">
+						<h2 class="title">Đơn hàng của bạn</h2>
+
 					</div>
-				</form>
+					<!-- contact title -->
+				</div>
+			</div>
+			<!-- row -->
+			<div class="contact-box mt-70">
+				<form>
+					<table class="table table-striped">
+					  <thead>
+					    <tr>
+					      <th scope="col">#</th>
+					      <th scope="col">ID</th>
+					      <th scope="col">Total Amount</th>
+					      <th scope="col">Date</th>
+					      <th scope="col"></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr th:each="order, iStat : ${orders}">
+					      <th th:text="${iStat.index+1}"></th>
+					      <td th:text="${order.id}"></td>
+					      <td th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></td>
+					      <td th:text="${order.orderDate}"></td>
+					      <td>
+					        <a th:href="@{/editOrder/{id}(id=${order.id})}" data-toggle="modal" th:data-target="'#orderModal' + ${order.id}"
+     th:data-order-id="${order.id}" class="btn btn-info btn-sm ml-auto">Xem</a>
+					      </td>
+					    </tr>
+					  </tbody>
+					</table>
+	    		</form>
 
 			</div>
 			<!-- contact box -->
@@ -1652,6 +1699,54 @@
 		}
 		/*]]>*/
 	</script>
+<div th:each="order, iStat : ${orderDetails}" >
+<div class="modal fade"  th:id="'orderModal' + ${order.order.id}" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Thông tin đơn hàng</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
+        <h4>User: <small th:text="${order.order.user.fullname}"></small>  </h4><br>
+        <h4>Product: <small th:text="${order.order.note}"></small>  </h4><br>
+        <h4>Quantity: <small th:text="${order.quantity}"></small></h4><br>
+		<h4>Total Amount: <small th:text="${#numbers.formatDecimal(order.order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></small><small> vnđ</small></h4><br>
+        <h4>Address: <small th:text="${order.address}"></small></h4><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+	</div>
+	<div class="modal fade"  th:id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderModalLabel">Điền địa chỉ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
+       <form th:action="@{/saveOrder}" method="post">
+       		<input type="text" name="address">
+       		<button type="submit" class="btn btn-secondary">Thanh toán</button>
+       </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 
 </html>

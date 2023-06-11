@@ -23,10 +23,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poly.main.DAO.CartDAO;
+import com.poly.main.DAO.OrderDAO;
+import com.poly.main.DAO.OrderDetailDAO;
 import com.poly.main.DAO.ProductDAO;
 import com.poly.main.DAO.UserDAO;
 import com.poly.main.model.Cart;
 import com.poly.main.model.Category;
+import com.poly.main.model.Order;
+import com.poly.main.model.OrderDetail;
 import com.poly.main.model.Product;
 import com.poly.main.model.User;
 
@@ -53,7 +57,10 @@ public class mainController {
 	UserDAO userDao;
 	@Autowired
 	ProductDAO productDao;
-
+	@Autowired
+	OrderDAO orderDao;
+	@Autowired
+	OrderDetailDAO orderdetailDao ;
 	
 	@Autowired
 	ProductDAO dao;
@@ -110,6 +117,10 @@ public class mainController {
 		if (userId != null) {
 		    User user = userDao.findById(userId).get();
 		    model.addAttribute("account",user);
+		    List<Order> orders = orderDao.findByUser(user);
+		    model.addAttribute("orders", orders);
+		    List<OrderDetail> orderDetails = orderdetailDao.findByOrderIn(orders);
+			model.addAttribute("orderDetails",orderDetails);
 		}
 		
 		List<Cart> carts = cartDao.findByUserUsername(username);
@@ -127,17 +138,14 @@ public class mainController {
 		
 		return "index";
 	}
-
-	@RequestMapping("/admin/deleteCart/{id}")
-	public String deleteCart(@PathVariable("id") int id) {
-		cartDao.deleteById(id);
-		return "redirect:/index";
-	}
-	@RequestMapping("/admin/saveCart")
+	@RequestMapping("/user/saveCart")
 	public String saveCart(@RequestParam("productId") int id, Model model,@RequestParam("quantity") int quantity) {
-		System.out.println("save");
+	System.out.println("ko"+sessionService.get("usernameId"));
+		if (sessionService.get("usernameId")==null) {
+		return "redirect:/account/login";
+	}
 		Product product = dao.findById(id).get();
-		User user = userDao.findById(2).get();// user mặc định test
+		User user = userDao.findById(sessionService.get("usernameId")).get();
 		System.out.println(id);
 		Cart cart = new Cart();
 		cart.setProduct(product);
@@ -148,6 +156,18 @@ public class mainController {
 		return "redirect:/index";
 	}
 
+	@RequestMapping("/admin/deleteCart/{id}")
+	public String deleteCart(@PathVariable("id") int id) {
+		cartDao.deleteById(id);
+		return "redirect:/index";
+	}
+	
+	@RequestMapping("/editOrder/{id}")
+	public String editOrder(@PathVariable("id") int id,Model model) {
+		System.out.println(id);
+		
+		return "redirect:/index";
+	}
 	
 	@RequestMapping("/saveProfile")
 	public String savaProfile(@Valid User user, BindingResult result, Model model) {

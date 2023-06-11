@@ -36,7 +36,8 @@ public class OrderDetail implements Serializable {
     private Product product;
 
     private int quantity;
-
+    
+    private String address;
     // Constructors, getters, and setters
 }
 

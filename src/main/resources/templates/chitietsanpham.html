@@ -109,7 +109,7 @@
 	<!--====== SLIDER PART START ======-->
 
 	<section id="home" class="slider-area pt-100">
-	<form method="post"  th:action="@{/admin/saveCart(productId=${product.id})}">
+	<form method="post"  th:action="@{/user/saveCart(productId=${product.id})}">
 		<div class="container-fluid position-relative">
 			<div class="slider-active">
 				<div class="single-slider">
@@ -128,6 +128,7 @@
 								<br>
 								<br>
 									<h2 th:text="${product.name}"></h2>
+									<br>
 									<h5 data-animation="fadeInUp" th:text="${product.description}"></h5>
 									<div class="single-product-items">
 										<div class="product-item-content text-left mt-30">

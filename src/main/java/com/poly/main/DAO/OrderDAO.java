@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.poly.main.model.Order;
+import com.poly.main.model.User;
 
 public interface OrderDAO extends JpaRepository<Order, Integer> {
-	
+	List<Order> findByUser(User user);
 
 }

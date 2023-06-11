@@ -38,7 +38,7 @@ public class Order implements Serializable {
 
     private BigDecimal totalAmount;
 
-    private String status;
+    private String note;
 
     // Constructors, getters, and setters
 }
