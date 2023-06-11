@@ -91,7 +91,6 @@ public class mainController {
 		    BigDecimal price = car.getProduct().getPrice();
 		    BigDecimal cartTotalPrice = price.multiply(BigDecimal.valueOf(quantity));
 		    totalPrice = totalPrice.add(cartTotalPrice);
-		    
 		}
 
 		model.addAttribute("totalPrice", totalPrice);
@@ -104,7 +103,20 @@ public class mainController {
 		cartDao.deleteById(id);
 		return "redirect:/index";
 	}
-	
+	@RequestMapping("/admin/saveCart")
+	public String saveCart(@RequestParam("productId") int id, Model model,@RequestParam("quantity") int quantity) {
+		System.out.println("save");
+		Product product = dao.findById(id).get();
+		User user = userDao.findById(2).get();// user mặc định test
+		System.out.println(id);
+		Cart cart = new Cart();
+		cart.setProduct(product);
+		cart.setUser(user);
+		cart.setQuantity(quantity);
+		
+		cartDao.save(cart);
+		return "redirect:/index";
+	}
 
     @GetMapping("/chiTietSanPham")
     public String showProductDetail(Model model, @RequestParam("productId") int productId) {

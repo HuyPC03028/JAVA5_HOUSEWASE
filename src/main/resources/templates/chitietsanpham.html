@@ -109,6 +109,7 @@
 	<!--====== SLIDER PART START ======-->
 
 	<section id="home" class="slider-area pt-100">
+	<form method="post"  th:action="@{/admin/saveCart(productId=${product.id})}">
 		<div class="container-fluid position-relative">
 			<div class="slider-active">
 				<div class="single-slider">
@@ -116,13 +117,16 @@
 						<div class="row no-gutters align-items-center ">
 							<div class="col-lg-4 col-md-5">
 								<div class="slider-product-image d-none d-md-block">
-									<img th:src="@{'/getimage/' + ${product.image}}"
+									<img th:src="@{'/image/' + ${product.image}}"
 										alt="Product Image">
 								</div>
 								<!-- slider product image -->
 							</div>
 							<div class="col-lg-8 col-md-7">
 								<div class="slider-product-content">
+								<br>
+								<br>
+								<br>
 									<h2 th:text="${product.name}"></h2>
 									<br>
 									<h5 data-animation="fadeInUp" th:text="${product.description}"></h5>
@@ -134,12 +138,22 @@
 												<li><i class="lni-star-filled"></i></li>
 												<li><i class="lni-star-filled"></i></li>
 											</ul>
+											
+											<div class="quantity-input">
+											  <button class="minus-btn" type="button">-</button>
+											  <input type="text" pattern="\d*" inputmode="numeric" value="1" min="0" name="quantity" style="width: 5ch;">
+											  <button class="plus-btn" type="button">+</button>
+											</div>
+
 											<p th:text="${product.price}"></p>
 										</div>
 									</div>
 
-									<a class="main-btn">Thêm vào giỏ <i
-										class="lni-chevron-right"></i></a>
+
+									<button type="submit" class="main-btn">Thêm vào giỏ <i class="lni-chevron-right"></i></button>
+									<br>
+									<br>
+									<br>
 								</div>
 								<!-- slider product content -->
 							</div>
@@ -163,6 +177,7 @@
 				</div>
 			</div>
 		</div>
+		</form>
 		<!-- container fluid -->
 	</section>
 
@@ -184,7 +199,7 @@
                                         <div class="single-product-items">	
 										<div class="product-item-image">
 											<img class="img-fluid w-100"
-												th:src="@{'/getimage/'+${item.image}}" alt="" height="150px"
+												th:src="@{'/image/'+${item.image}}" alt="" height="150px"
 												width="95%">
 											<div class="product-discount-tag">
 												<p>-40%</p>
@@ -487,7 +502,24 @@
 
 	<!--====== Main js ======-->
 	<script src="assets/js/main.js"></script>
-
+	<script>
+	$(document).ready(function() {
+		  $('.minus-btn').click(function() {
+		    var input = $(this).siblings('input');
+		    var value = parseInt(input.val());
+		    if (value > 0) {
+		      input.val(value - 1);
+		    }
+		  });
+	
+		  $('.plus-btn').click(function() {
+		    var input = $(this).siblings('input');
+		    var value = parseInt(input.val());
+		    input.val(value + 1);
+		  });
+		});
+	
+	</script>
 </body>
 
 </html>
