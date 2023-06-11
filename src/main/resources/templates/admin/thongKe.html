@@ -29,32 +29,44 @@
             <h3>Thống kê - Báo cáo</h3>
             <a href="/admin">Menu</a>
         </div>
-
-        <h1>Thống kê</h1>
-    <form action="/admin/thongke" method="post">
-	    <input type="number" name="month" >
-	    <button type="submit">Submit</button>
+<form action="/admin/thongKe" method="post">
+	  <div class="form-group">
+	    <label for="startDate">Thời gian bắt đầu:</label>
+	    <input type="date" id="startDate" name="startDate" required>
+	  </div>
+	  <div class="form-group">
+	    <label for="endDate">Thời gian kết thúc:</label>
+	    <input type="date" id="endDate" name="endDate" required>
+	  </div>
+	  <button type="submit" class="btn btn-primary">Tìm kiếm</button>
 	</form>
-    
-    <table>
+        <table class="table mt-4">
         <thead>
             <tr>
-                <th>Ngày đặt hàng</th>
-                <th>Tổng số tiền</th>
-                <th>Tên người mua</th>
-                <th>Tên sản phẩm</th>
+                <th>ID</th>
+                <th>Order ID</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Address</th>
+                <th>Amount</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Iterate over the list of reports -->
-            <tr th:each="item : ${items}">
-                <td th:text="${item.totalAmount}"></td>
-            
-                <td th:text="${item.productName}"></td>
+            <tr th:each="orderDetail : ${orderDetails}">
+                <td th:text="${orderDetail.id}"></td>
+                <td th:text="${orderDetail.order.id}"></td>
+                <td th:text="${orderDetail.order.note}"></td>
+                <td th:text="${orderDetail.quantity}"></td>
+                <td th:text="${orderDetail.address}"></td>
+                <td th:text="${orderDetail.order.totalAmount}"></td>
             </tr>
         </tbody>
     </table>
+    <div class="d-flex justify-content-end">
+		<strong>Total Amount:  </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
+	</div>
     </div>
+        
 
     <footer><div class="logo">
         <h1></h1>

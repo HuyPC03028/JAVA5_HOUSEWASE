@@ -105,6 +105,12 @@ public class mainController {
         
         Cart cart = new Cart();
 		model.addAttribute("cart",cart);
+		Integer userId = sessionService.get("usernameId");
+		
+		if (userId != null) {
+		    User user = userDao.findById(userId).get();
+		    model.addAttribute("account",user);
+		}
 		
 		List<Cart> carts = cartDao.findByUserUsername(username);
 		model.addAttribute("carts",carts);
@@ -129,7 +135,22 @@ public class mainController {
 		return "redirect:/index";
 	}
 	
-
+	@RequestMapping("/saveProfile")
+	public String savaProfile(@Valid User user, BindingResult result, Model model) {
+		String id = paramService.getString("id", "");
+		String uid = String.valueOf(user.getId());
+		if (uid.equals(id)) {
+			sessionService.set("error", "ID đã tồn tại!!!");
+		}
+		if(result.hasErrors()){
+			model.addAttribute("message", "Cập nhật thất bại!");
+			
+			return "redirect:/index";
+        }
+		
+		userDao.save(user);
+		return "redirect:/index";
+	}
     @GetMapping("/chiTietSanPham")
     public String showProductDetail(Model model, @RequestParam("productId") int productId) {
         // Lấy thông tin sản phẩm từ cơ sở dữ liệu dựa trên productId

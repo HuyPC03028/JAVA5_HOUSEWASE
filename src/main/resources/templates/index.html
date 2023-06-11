@@ -1318,12 +1318,13 @@
 					</div>
 					<div class="col-lg-8">
 						<div class="contact-form">
-							<form id="contact-form1" action="assets/contact.php"
-								method="post" data-toggle="validator">
+							<form id="contact-form1" th:action="@{/saveProfile}" method="post"
+								data-toggle="validator">
 								<div class="row">
-									<div class="col-lg-6">
+								<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="text" name="name"
+											<input type="text" name="id" th:if="${account != null}"
+       											th:field="${account.id}" readonly
 												placeholder="Nhập vào tên đăng nhập"
 												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
@@ -1332,29 +1333,43 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="email" name="email" placeholder="Nhập vào email"
-												data-error="Valid email is required." required="required">
+											<input type="text" name="username" th:if="${account != null}"
+       											th:field="${account.username}"
+												placeholder="Nhập vào tên đăng nhập"
+												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
 										<!-- single form -->
 									</div>
 									<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="password" name="password"
-												placeholder="Nhập vào mật khẩu"
+											<input type="email" name="email" th:if="${account != null}"
+       											th:field="${account.email}"  placeholder="Nhập vào email"
+												data-error="Valid email is required." required="required">
+											<div class="help-block with-errors"></div>
+										</div>
+										<!-- single form -->
+									</div>
+<div class="col-lg-6">
+										<div class="single-form form-group">
+											<input type="text" name="password" 
+												placeholder="Nhập vào mật khẩu" th:if="${account != null}"
+       											th:field="${account.password}"
 												data-error="Valid password is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
 										<!-- single form -->
 									</div>
 									<div class="col-lg-6">
-										<div class="single-form form-group">
-											<input type="phone" name="phone"
-												placeholder="Nhập vào số điện thoại"
-												data-error="Valid phone is required." required="required">
+									<div class="single-form form-group">
+											<input type="text" name="fullname" 
+												placeholder="Nhập vào tên đăng nhập"
+												th:if="${account != null}"
+       											th:field="${account.fullname}"
+												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
-										<!-- single form -->
+											<!-- single form -->
 									</div>
 									<p class="form-message"></p>
 									<div class="col-lg-12">
