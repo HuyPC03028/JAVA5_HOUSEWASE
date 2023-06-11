@@ -156,7 +156,7 @@ public class mainController {
 		return "redirect:/index";
 	}
 
-	@RequestMapping("/admin/deleteCart/{id}")
+	@RequestMapping("/user/deleteCart/{id}")
 	public String deleteCart(@PathVariable("id") int id) {
 		cartDao.deleteById(id);
 		return "redirect:/index";
