@@ -1,0 +1,75 @@
+<div th:fragment="quantity-and-price">
+  <!-- Nội dung fragment -->
+  <section id="cart" class="contact-area pt-115">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6">
+					<div class="contact-title text-center">
+						<h2 class="title">Giỏ hàng của bạn</h2>
+						<div th:if="${hetHangMessage}" class="alert alert-danger" role="alert">
+						    <span th:text="${hetHangMessage}"></span>
+						</div>
+					</div>
+					<!-- contact title -->
+				</div>
+			</div>
+			<!-- row -->
+			<div class="contact-box mt-70">
+				<form>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Tên sản phẩm</th>
+								<th scope="col">Hình ảnh</th>
+								<th scope="col">Số lượng</th>
+								<th scope="col">Giá gốc</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							
+								<tr th:each="cart, iStat : ${carts}">
+									<th th:text="${iStat.index+1}"></th>
+									<td th:text="${cart.product.name}"></td>
+									<td><img th:src="@{/image/{imageName}(imageName=${cart.product.image})}" alt=""
+										height="50"></td>
+											  
+
+									<td >
+										<button class="minus-btn" type="button" th:data-cart-id="${cart.id}" th:data-action="decrease">-</button>
+										<span th:text="${cart.quantity}"></span>										
+										<button class="plus-btn" type="button" th:data-cart-id="${cart.id}" th:data-action="increase">+</button>
+										
+									</td>
+									<!-- quantity-and-price.html -->
+									<td th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
+									<td>
+									    <a th:href="@{/user/deleteCart/{id}(id=${cart.id})}" class="btn btn-danger btn-sm ml-auto" onclick="return confirmDelete()">xóa</a>
+									</td>
+								</tr>
+							
+						</tbody>
+						
+					</table>
+					<div class="d-flex justify-content-end">
+						<strong>Total Amount: </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
+						
+					</div>
+					<div th:if="${totalNoSale}" class="d-flex justify-content-end">
+						<del  th:text="${#numbers.formatDecimal(totalNoSale, 0, 'COMMA', 0, 'POINT')}"> </del> vnđ
+					</div>
+					<br>
+					<div class="d-flex justify-content-end">
+				        <a th:href="@{/saveOrder}" data-toggle="modal" data-target="#cartModal"
+       class="btn btn-info btn-sm ml-auto" >Đặt hàng</a>
+       
+				    </div>
+	    		</form>
+
+			</div>
+			<!-- contact box -->
+		</div>
+		<!-- container -->
+	</section>
+</div>

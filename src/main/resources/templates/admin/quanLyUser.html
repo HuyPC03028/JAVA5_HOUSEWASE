@@ -47,7 +47,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="user : ${users}">
+                            <tr th:each="user : ${users}" th:unless="${user.active==false}">
                                 <td th:text="${user.id}"></td>
                                 <td th:text="${user.fullname}"></td>
                                 <td th:text="${user.username}"></td>

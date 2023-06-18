@@ -22,16 +22,24 @@
                 <form action="" method="post">
                     <div class="card mt-5">
                         <div class="card-header">
-                            <b>Quên mật khẩu</b>
+                            <b>Xác nhận mật khẩu</b>
                         </div>
                         <div class="card-body">
+                         	<div class="form-group">
+                                <label for="email">Mật khẩu mới</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Nhập mật khẩu mới">
+                            </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control" name="email" id="email" placeholder="nhập email">
+                                <label for="email">Nhập lại mật khẩu</label>
+                                <input type="password" class="form-control" name="nhapLai" id="nhapLai" placeholder="Nhập lại mật khẩu mới">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Mã xác nhận</label>
+                                <input type="text" class="form-control" name="MXN" id="MXN" placeholder="Nhập mã xác nhận">
                             </div>
                         </div>
                         <div class="card-footer text-muted">
-                            <button class="btn btn-success">Gửi mail</button>
+                            <button class="btn btn-success">Xác nhận</button>
                             <label class="mx-3"></label>
                             <label class="mx-5"><a href="http://localhost:8080/index" class="text-dark">Trang chủ</a></label>
                         </div>

@@ -48,6 +48,11 @@ public class userAdminController {
 	@RequestMapping("/admin/quanLyUser")
 	public String quanLyUser(Model model, @RequestParam("keywords") Optional<String> kw,
 			@RequestParam("p") Optional<Integer> p) {
+		String message = sessionService.get("message");
+	    if (message != null) {
+	        model.addAttribute("message", message);
+	        sessionService.remove("message");
+	    }
 		String kwords = kw.orElse(sessionService.get("keywords", ""));
 		sessionService.set("keywords", kwords);
 		model.addAttribute("keywords", sessionService.get("keywords", ""));
@@ -77,8 +82,33 @@ public class userAdminController {
 	}
 
 	@RequestMapping("/admin/deleteUser/{id}")
-	public String deleteUser(@PathVariable("id") int id) {
-		dao.deleteById(id);
+	public String deleteUser( User user, BindingResult result,@PathVariable("id") int id, Model model, @RequestParam("keywords") Optional<String> kw,
+			@RequestParam("p") Optional<Integer> p) {
+		if(id==0) {
+			model.addAttribute("message", "không tìm thấy user!");
+			 String kwords = kw.orElse(sessionService.get("keywords", ""));
+				sessionService.set("keywords", kwords);
+				model.addAttribute("keywords", sessionService.get("keywords", ""));
+				Pageable pageable = PageRequest.of(p.orElse(0), 5);
+				Page<User> users = dao.findByKeywords("%" + kwords + "%", pageable);
+				model.addAttribute("users", users);
+			return "admin/quanLyUser";
+		}
+		user = dao.findById(id).get();
+		
+		if (user.isAdmin()) {
+			model.addAttribute("message", "Không thể xóa admin!");
+			 String kwords = kw.orElse(sessionService.get("keywords", ""));
+				sessionService.set("keywords", kwords);
+				model.addAttribute("keywords", sessionService.get("keywords", ""));
+				Pageable pageable = PageRequest.of(p.orElse(0), 5);
+				Page<User> users = dao.findByKeywords("%" + kwords + "%", pageable);
+				model.addAttribute("users", users);
+			return "admin/quanLyUser";
+		}
+		user.setActive(false);
+		dao.save(user);
+		sessionService.set("message", "xóa thành công!");
 		return "redirect:/admin/quanLyUser";
 	}
 
@@ -102,8 +132,8 @@ public class userAdminController {
 				model.addAttribute("users", users);
 			return "admin/quanLyUser";
         }
+		user.setActive(true);
 		dao.save(user);
-		
 		return "redirect:/admin/editUser/" + user.getId();
 	}
 	

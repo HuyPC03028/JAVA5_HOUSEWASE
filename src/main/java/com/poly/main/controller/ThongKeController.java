@@ -2,6 +2,8 @@ package com.poly.main.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +16,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.poly.main.DAO.OrderDetailDAO;
 import com.poly.main.model.OrderDetail;
+import com.poly.main.service.SessionService;
 
 
 @Controller
 public class ThongKeController {
-	
+	@Autowired
+	SessionService sessionService;
     @Autowired
     OrderDetailDAO dao;
     @GetMapping("/admin/thongKe")
     public String thongKe() {
+    	
 		return "admin/thongKe";
 	}
     @PostMapping("/admin/thongKe")
     public String thongKe(@RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             Model model) {
-		 List<OrderDetail> orderDetails = dao.findByOrderOrderDateBetween(startDate, endDate);
+    	
+    	LocalDateTime startDateTime = startDate.atTime(LocalTime.MIN);
+        LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
+        
+		 List<OrderDetail> orderDetails = dao.findByOrderOrderDateBetween(startDateTime, endDateTime);
 	     model.addAttribute("orderDetails", orderDetails);
 	     BigDecimal totalPrice = BigDecimal.ZERO;
 	     for (OrderDetail car : orderDetails) {
@@ -38,6 +47,11 @@ public class ThongKeController {
 	     }
 
 	     model.addAttribute("totalPrice", totalPrice);
+	     
+	    	if (startDate!=null&&endDate!=null) {
+				model.addAttribute("startDate",startDate);
+				model.addAttribute("endDate",endDate);
+			}
 		return "admin/thongKe";
 	}
 }
