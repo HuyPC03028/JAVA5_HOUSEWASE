@@ -42,9 +42,15 @@ public class AccountController {
 	MailerServiceImpl impl;
 	
 	@GetMapping("/account/login")
-	public String login(@ModelAttribute("user") User user) {
+	public String login(@ModelAttribute("user") User user, Model model) {
+		String Message = sessionService.get("Message");
+	    if (Message != null) {
+	        model.addAttribute("Message", Message);
+	        sessionService.remove("Message");
+	    }
 		return "login";
 	}
+	
 	@PostMapping("/account/login")
 	public String login(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
 		User user3 = new User();
@@ -53,22 +59,29 @@ public class AccountController {
 		List<User> listuser = dao.findAll();
 		for (User user2 : listuser) {
 			if(user2.getUsername().equals(user.getUsername())){
-				if(user2.getPassword().equals(user.getPassword())) {
-					check = true;
-					sessionService.set("userSession", user2);
-					user3 = user2;
-					sessionService.set("username", user.getUsername());
-					sessionService.set("usernameId", user2.getId());
-					if(rm) {
-						cookieService.add("username", user.getUsername(),10);
-						cookieService.add("password", user.getPassword(),10);
-					}else {
-						cookieService.remove("username");
-						cookieService.remove("password");
-					}
-				}else {
+				if (user2.isActive()==false) {
+					sessionService.set("Message", "Tài khoản bị vô hiệu hóa!!!");
 					return "redirect:/account/login";
+				}else {
+					if(user2.getPassword().equals(user.getPassword())) {
+						check = true;
+						sessionService.set("userSession", user2);
+						user3 = user2;
+						sessionService.set("username", user.getUsername());
+						sessionService.set("usernameId", user2.getId());
+						if(rm) {
+							cookieService.add("username", user.getUsername(),10);
+							cookieService.add("password", user.getPassword(),10);
+						}else {
+							cookieService.remove("username");
+							cookieService.remove("password");
+						}
+					}else {
+						sessionService.set("Message", "Tên tài khoản hoặc mật khẩu sai!!!");
+						return "redirect:/account/login";
+					}
 				}
+				
 			}
 		}
 		
@@ -107,6 +120,13 @@ public class AccountController {
 	public String QuenMK(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
+		
+		String Message = sessionService.get("Message");
+	    if (Message != null) {
+	        model.addAttribute("Message", Message);
+	        sessionService.remove("Message");
+	    }
+	    
 		return "quenMK";
 	}
 	
@@ -118,14 +138,17 @@ public class AccountController {
 		for (User nguoiDung : list) {
 			if(nguoiDung.getEmail().equals(user.getEmail())) {
 				check = true;
+				
 			}
 		}
 		
 		if(check == true) {
 			String newPassword = generateRandomString();
-			User customer = dao.findByEmail(user.getEmail());
-			customer.setPassword(newPassword);
-			dao.save(customer);
+			sessionService.set("Email", user.getEmail());
+			sessionService.set("MXN", newPassword);
+//			User customer = dao.findByEmail(user.getEmail());
+//			customer.setPassword(newPassword);
+//			dao.save(customer);
 			
 			String subject = "Đổi mật khẩu";
 			String message = newPassword;
@@ -137,37 +160,129 @@ public class AccountController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return "login";
+			sessionService.set("Message", "Mã xác nhận đã được gửi về mail của bạn!!!");
+			return "redirect:/account/xacNhanMK";
 		}else {
-		return "quenMK";
+		sessionService.set("Message", "Không tìm thấy Email!!!");
+		return "redirect:/account/quenMK";
 	}}
+	@GetMapping("/account/xacNhanMK")
+	public String xacNhanMK(Model model) {
+		String Message = sessionService.get("Message");
+	    if (Message != null) {
+	        model.addAttribute("Message", Message);
+	        sessionService.remove("Message");
+	    }
+		return "xacNhanMK";
+	}
+	@PostMapping("/account/xacNhanMK")
+	public String xacNhanMK(Model model, @ModelAttribute("user") User user, @RequestParam("MXN") String mxn, @RequestParam("nhapLai") String nhapLai) {
+		String email = sessionService.get("Email");
+		String MXN = sessionService.get("MXN");
+		if (nhapLai.equals(user.getPassword())) {
+			if (MXN.equals(mxn)) {
+				User customer = dao.findByEmail(email);
+				customer.setPassword(user.getPassword());
+				dao.save(customer);
+				sessionService.remove("MXN");
+				sessionService.remove("Email");
+			}else {
+				sessionService.set("Message", "Mã xác nhận sai!!!");
+				return "redirect:/account/xacNhanMK";
+			}
+		}else {
+			sessionService.set("Message", "Mật khẩu không trùng khớp!!!");
+			return "redirect:/account/xacNhanMK";
+		}
+		sessionService.set("Message", "Đổi mật khẩu thành công!!!");
+		return "redirect:/account/login";
+	}
+	@GetMapping("/account/xacNhanMail")
+	public String xacNhanMail(Model model) {
+		String Message = sessionService.get("Message");
+	    if (Message != null) {
+	        model.addAttribute("Message", Message);
+	        sessionService.remove("Message");
+	    }
+		return "xacNhanMail";
+	}
+	@PostMapping("/account/xacNhanMail")
+	public String xacNhanMail(Model model,@RequestParam("MXN") String mxn) {
+		String maXacNhan = sessionService.get("maXacNhan");
+		int id = sessionService.get("UserXN");
+		if (mxn.equals(maXacNhan)) {
+			User user = dao.findById(id).get();
+			user.setActive(true);
+			dao.save(user);
+			sessionService.remove("maXacNhan");
+			sessionService.remove("UserXN");
+			sessionService.set("Message", "Đăng ký thành công!!!");
+			return "redirect:/account/login";
+		}
+		sessionService.set("Message", "Mã xác nhận không chính xác!!!");
+		return "redirect:/account/xacNhanMail";
+	}
+
 	@GetMapping("/account/sign-up")
 	public String signup(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
 		
+		
+		String Message = sessionService.get("Message");
+	    if (Message != null) {
+	        model.addAttribute("Message", Message);
+	        sessionService.remove("Message");
+	    }
+	    
 		return "sign-up";
 	}
 	@PostMapping("/account/sign-up")
-	public String signup(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+	public String signup(@Valid @ModelAttribute("user") User user, BindingResult result, Model model,@RequestParam("email")String recipient) {
 		if(result.hasErrors()){
 			return "sign-up";
         }
-		
+
 		List<User> listUser = dao.findAll();
 		boolean check = false;
 		for (User nguoiDung : listUser) {
 			if(nguoiDung.getUsername().equals(user.getUsername())) {
+				sessionService.set("Message", "Username đã tồn tại!!!");
 				check = false;
+				break;
+			}else if(nguoiDung.getEmail().equals(user.getEmail())){
+				sessionService.set("Message", "Email đã tồn tại!!!");
+				check = false;
+				break;
 			}else {
+				
 				check = true;
-			}	
-		}
+			}
+		}	
 		
 		if(check==true) {
 			user.setAdmin(false);
+			user.setActive(false);
 			dao.save(user);
-			return "redirect:/account/login";
+			
+			//tạo mail mã xac nhận
+			String maXacNhan = generateRandomString();
+			
+			String subject = "Đổi mật khẩu";
+			String message = "Mã xác nhận của bạn: "+maXacNhan;
+			
+			MailInfo mail = new MailInfo(recipient, subject, message);
+			try {
+				impl.send(mail);
+			} catch (MessagingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			sessionService.set("UserXN", user.getId());
+			sessionService.set("maXacNhan", maXacNhan);
+			sessionService.set("Message", "Mã xác nhận đã được gửi về mail của bạn!!!");
+			
+			return "redirect:/account/xacNhanMail";
 		}else {
 			return "redirect:/account/sign-up";
 		}

@@ -40,4 +40,5 @@ public class User implements Serializable {
 	private String email;
 	@NotNull(message = "{NotNull.User.admin}")
 	private boolean admin;
+	private boolean active;
 }

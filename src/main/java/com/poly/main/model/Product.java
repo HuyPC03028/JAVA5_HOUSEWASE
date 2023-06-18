@@ -45,7 +45,7 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-
+    private boolean active;
 
 
     // Constructors, getters, and setters

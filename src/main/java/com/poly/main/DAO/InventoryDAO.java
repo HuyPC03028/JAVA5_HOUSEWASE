@@ -10,4 +10,6 @@ import com.poly.main.model.Inventory;
 public interface InventoryDAO extends JpaRepository<Inventory, Integer> {
 	@Query("SELECT o FROM Inventory o WHERE o.product.name LIKE ?1")
 	Page<Inventory> findByKeywords(String keywords, Pageable pageable);
+	@Query("SELECT o FROM Inventory o WHERE o.product.id LIKE ?1")
+	Inventory findByProduct(int id);
 }
