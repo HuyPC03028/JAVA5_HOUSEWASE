@@ -95,7 +95,9 @@ public class productAdminController {
 	
 	@RequestMapping("/admin/deleteProduct/{id}")
 	public String deleteProduct(@PathVariable("id") int id) {
-		dao.deleteById(id);
+		Product product = dao.findById(id).get();
+		product.setActive(false);
+		dao.save(product);
 		return "redirect:/admin/quanLyProduct";
 	}
 	@RequestMapping("/admin/saveProduct")
@@ -154,7 +156,7 @@ public class productAdminController {
 		    
 	        return "admin/quanLyProduct";
 	    }
-	    
+	    product.setActive(true);
 	    dao.save(product);
 	    return "redirect:/admin/editProduct/" + product.getId();
 	}

@@ -46,7 +46,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="product : ${products}">
+                        <tr th:each="product : ${products}" th:unless="${product.active==false}">
                             <td th:text="${product.id}"></td>
                             <td th:text="${product.category.name}"></td>
                             <td th:text="${product.name}"></td>

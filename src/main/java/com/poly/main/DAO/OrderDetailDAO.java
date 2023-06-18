@@ -1,6 +1,7 @@
 package com.poly.main.DAO;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -16,5 +17,7 @@ public interface OrderDetailDAO extends JpaRepository<OrderDetail, Integer> {
 	@Query("SELECT o FROM OrderDetail o WHERE o.order.user.fullname LIKE ?1")
 	Page<OrderDetail> findByKeywords(String keywords, Pageable pageable);
 	List<OrderDetail> findByOrderIn(List<Order> orders);
-	List<OrderDetail> findByOrderOrderDateBetween(LocalDate startDate, LocalDate endDate);
+	List<OrderDetail> findByOrderOrderDateBetween(LocalDateTime startDate, LocalDateTime endDate);
+
+
 }

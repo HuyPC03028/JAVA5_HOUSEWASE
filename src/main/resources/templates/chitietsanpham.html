@@ -144,8 +144,10 @@
 											  <input type="text" pattern="\d*" inputmode="numeric" value="1" min="0" name="quantity" style="width: 5ch;">
 											  <button class="plus-btn" type="button">+</button>
 											</div>
-
-											<p th:text="${product.price}"></p>
+											
+											<p th:if="${khuyenMai}" th:text="${#numbers.formatDecimal(khuyenMai, 0, 'COMMA', 0, 'POINT')}"></p>
+											
+											<p th:unless="${khuyenMai}" th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}"></p>
 										</div>
 									</div>
 

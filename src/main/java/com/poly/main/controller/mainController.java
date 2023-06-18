@@ -17,18 +17,21 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.poly.main.DAO.CartDAO;
+import com.poly.main.DAO.DiscountDAO;
 import com.poly.main.DAO.OrderDAO;
 import com.poly.main.DAO.OrderDetailDAO;
 import com.poly.main.DAO.ProductDAO;
 import com.poly.main.DAO.UserDAO;
 import com.poly.main.model.Cart;
 import com.poly.main.model.Category;
+import com.poly.main.model.Discount;
 import com.poly.main.model.Order;
 import com.poly.main.model.OrderDetail;
 import com.poly.main.model.Product;
@@ -64,13 +67,14 @@ public class mainController {
 	
 	@Autowired
 	ProductDAO dao;
-
+	@Autowired
+	DiscountDAO discountdao;
 	
 	@Autowired
     private ProductDAO productDAO;
 	
 
-	@GetMapping("/index")
+	@RequestMapping("/index")
 	public String index(Model model, HttpSession session,@RequestParam("keywords") Optional<String> kw,
 			@RequestParam("p") Optional<Integer> p) {
 	    String username = sessionService.get("username", "");
@@ -82,6 +86,18 @@ public class mainController {
 			model.addAttribute("loggedIn", false);
 		}
 		
+		 String hetHang = sessionService.get("hetHang");
+		    if (hetHang != null) {
+		        model.addAttribute("hetHangMessage", hetHang);
+		        sessionService.remove("hetHang");
+		    }
+		    
+		    //show discount
+		    List<Discount> discount = discountdao.findAll();
+		    model.addAttribute("discounts", discount);
+		    
+		    
+		    
 		String kwords = kw.orElse(sessionService.get("keywords", ""));
 		sessionService.set("keywords", kwords);
 		model.addAttribute("keywords", sessionService.get("keywords", ""));
@@ -125,16 +141,33 @@ public class mainController {
 		
 		List<Cart> carts = cartDao.findByUserUsername(username);
 		model.addAttribute("carts",carts);
+		
 		BigDecimal totalPrice = BigDecimal.ZERO;
+		BigDecimal totalNoSale = BigDecimal.ZERO;
 		for (Cart car : carts) {
 		    int quantity = car.getQuantity();
-		    BigDecimal price = car.getProduct().getPrice();
-		    BigDecimal cartTotalPrice = price.multiply(BigDecimal.valueOf(quantity));
-		    totalPrice = totalPrice.add(cartTotalPrice);
+		    int idPro = car.getProduct().getId();
+		    Product proDiscount = dao.findById(idPro).get();
+		  //Hiển thị giá discount
+	        Discount discount2 = discountdao.findByProduct(proDiscount);
+	        if (discount2!= null) {
+	        	BigDecimal price = discount2.getDiscountAmount();
+	        	BigDecimal cartTotalPrice = price.multiply(BigDecimal.valueOf(quantity));
+			    totalPrice = totalPrice.add(cartTotalPrice);
+			    
+			    BigDecimal price2 = car.getProduct().getPrice();
+			    BigDecimal cartTotalPrice2 = price2.multiply(BigDecimal.valueOf(quantity));
+			    totalNoSale = totalNoSale.add(cartTotalPrice2);
+			}else {
+				BigDecimal price = car.getProduct().getPrice();
+			    BigDecimal cartTotalPrice = price.multiply(BigDecimal.valueOf(quantity));
+			    totalPrice = totalPrice.add(cartTotalPrice);
+			}
+		    
 		}
 
 		model.addAttribute("totalPrice", totalPrice);
-		
+		model.addAttribute("totalNoSale", totalNoSale);
 		
 		return "index";
 	}
@@ -181,7 +214,11 @@ public class mainController {
 			
 			return "redirect:/index";
         }
-		
+		String password = user.getPassword();
+		int commaIndex = password.indexOf(",");
+		String valueBeforeComma = password.substring(0, commaIndex);
+		user.setPassword(valueBeforeComma);
+		user.setActive(true);
 		userDao.save(user);
 		return "redirect:/index";
 	}
@@ -199,8 +236,58 @@ public class mainController {
         model.addAttribute("username", username);
         List<Product> product1 = dao.findAll();
         model.addAttribute("product", product);
+        //Hiển thị giá discount
+        Discount discount = discountdao.findByProduct(product);
+        if (discount != null) {
+        	model.addAttribute("khuyenMai", discount.getDiscountAmount());
+		}
+
         model.addAttribute("products", product1);
         return "chitietsanpham"; // Trả về tên của template hiển thị trang chi tiết sản phẩm
-    }	
+    }
+    
+    @RequestMapping("/user/updateQuantity")
+    public String updateQuantity(@RequestParam("cartId") int cartId,
+                                 @RequestParam("action") String action,
+                                 Model model) {
+        // Xử lý cập nhật số lượng sản phẩm ở đây
+        String username = sessionService.get("username", "");
+        
+
+        // Thêm thông tin số lượng và giá trị vào model
+        Cart cart = cartDao.findById(cartId).get(); // Lấy thông tin Cart từ cơ sở dữ liệu
+        if (action.equals("increase")) {
+            cart.setQuantity(cart.getQuantity() + 1);
+        } else if (action.equals("decrease")) {
+            cart.setQuantity(cart.getQuantity() - 1);
+        }
+        model.addAttribute("cart", cart.getQuantity());
+        cartDao.save(cart);
+        List<Cart> carts = cartDao.findByUserUsername(username);
+        model.addAttribute("carts", carts);
+
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (Cart car : carts) {
+            int quantity = car.getQuantity();
+            int idPro = car.getProduct().getId();
+            Product proDiscount = dao.findById(idPro).get();
+            // Hiển thị giá discount
+            Discount discount2 = discountdao.findByProduct(proDiscount);
+            if (discount2 != null) {
+                BigDecimal price = discount2.getDiscountAmount();
+                BigDecimal cartTotalPrice = price.multiply(BigDecimal.valueOf(quantity));
+                totalPrice = totalPrice.add(cartTotalPrice);
+            } else {
+                BigDecimal price = car.getProduct().getPrice();
+                BigDecimal cartTotalPrice = price.multiply(BigDecimal.valueOf(quantity));
+                totalPrice = totalPrice.add(cartTotalPrice);
+            }
+        }
+
+        model.addAttribute("totalPrice", totalPrice);
+        // Trả về fragment Thymeleaf đã tạo
+        return "fragments/quantity-and-price :: quantity-and-price";
+    }
+
 
 }

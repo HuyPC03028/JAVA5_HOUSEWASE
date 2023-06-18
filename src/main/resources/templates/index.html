@@ -81,7 +81,7 @@
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul id="nav" class="navbar-nav ml-auto">
 								<li class="nav-item active"><a data-scroll-nav="0"
-									href="#home">Trang chủ</a></li>
+									href="#home" >Trang chủ</a></li>
 								<li class="nav-item"><a data-scroll-nav="0" href="#product">Sản
 										Phẩm</a></li>
 								<li class="nav-item"><a data-scroll-nav="0" href="#cart">Giỏ
@@ -281,7 +281,9 @@
 							<h4 class="content-title mb-15">
 								Ưu đãi hấp dẫn <br> Giảm giá tới 80%
 							</h4>
-							<a href="#">Xem bộ sưu tập <i class="lni-chevron-right"></i></a>
+							<a data-scroll-nav="0" href="#discountproduct">Xem bộ sưu tập
+								<i class="lni-chevron-right"></i>
+							</a>
 						</div>
 						<!-- product content -->
 					</div>
@@ -309,17 +311,17 @@
 							role="tablist" aria-orientation="vertical">
 							<a class="active" id="v-pills-furniture-tab" data-toggle="pill"
 								href="#v-pills-furniture" role="tab"
-								aria-controls="v-pills-furniture" aria-selected="true" >Đồ
-								gia dụng</a> <a  id="v-pills-decorative-tab" data-toggle="pill"
+								aria-controls="v-pills-furniture" aria-selected="true">Đồ
+								gia dụng</a> <a id="v-pills-decorative-tab" data-toggle="pill"
 								href="#v-pills-decorative" role="tab"
 								aria-controls="v-pills-decorative" aria-selected="false">Tủ
-								lạnh</a> <a  id="v-pills-lighting-tab"  data-toggle="pill"
+								lạnh</a> <a id="v-pills-lighting-tab" data-toggle="pill"
 								href="#v-pills-lighting" role="tab"
 								aria-controls="v-pills-lighting" aria-selected="false">Bếp
-								điện từ</a> <a  id="v-pills-outdoor-tab" data-toggle="pill"
+								điện từ</a> <a id="v-pills-outdoor-tab" data-toggle="pill"
 								href="#v-pills-outdoor" role="tab"
 								aria-controls="v-pills-outdoor" aria-selected="false">Máy
-								sấy chén</a> <a  id="v-pills-storage-tab" data-toggle="pill"
+								sấy chén</a> <a id="v-pills-storage-tab" data-toggle="pill"
 								href="#v-pills-storage" role="tab"
 								aria-controls="v-pills-storage" aria-selected="false">Bếp
 								Gas</a> <a id="v-pills-storage-tab" data-toggle="pill"
@@ -340,15 +342,14 @@
 									<div class="col-md-4" th:each="item : ${dogiadung}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}" 
-													alt="" height="304px" ></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img
+													th:src="@{'/image/'+${item.image}}" alt="" height="304px"></a>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
+													<a th:text="${item.name}"
+														th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -356,9 +357,10 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
-												
-												
+												<span class="regular-price"
+													th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+
+
 											</div>
 										</div>
 										<!-- single product items -->
@@ -368,9 +370,8 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-20%</p>
-												</div>
+												
+													
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -393,9 +394,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-3.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-10%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -418,9 +417,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-1.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -443,9 +440,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -477,15 +472,15 @@
 									<div class="col-md-4" th:each="item : ${tulanh}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
-													alt="" height="304px" width="95%"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img
+													th:src="@{'/image/'+${item.image}}" alt="" height="304px"
+													width="95%"></a>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
+													<a th:text="${item.name}"
+														th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -493,8 +488,9 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
-												
+												<span class="regular-price"
+													th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+
 											</div>
 										</div>
 										<!-- single product items -->
@@ -504,9 +500,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -529,9 +523,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-3.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -554,9 +546,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-1.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -579,9 +569,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -612,15 +600,15 @@
 									<div class="col-md-4" th:each="item : ${bepdien}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
-													alt="" height="304px" width="95%"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img
+													th:src="@{'/image/'+${item.image}}" alt="" height="304px"
+													width="95%"></a>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
+													<a th:text="${item.name}"
+														th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -628,8 +616,9 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
-												
+												<span class="regular-price"
+													th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+
 											</div>
 										</div>
 										<!-- single product items -->
@@ -639,9 +628,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -664,9 +651,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-3.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -689,9 +674,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-1.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -714,9 +697,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -748,15 +729,15 @@
 									<div class="col-md-4" th:each="item : ${bepga}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
-													alt="" height="304px" width="95%"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img
+													th:src="@{'/image/'+${item.image}}" alt="" height="304px"
+													width="95%"></a>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
+													<a th:text="${item.name}"
+														th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -764,8 +745,9 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
-												
+												<span class="regular-price"
+													th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+
 											</div>
 										</div>
 										<!-- single product items -->
@@ -775,9 +757,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -800,9 +780,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-3.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -825,9 +803,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-1.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -850,9 +826,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -884,15 +858,15 @@
 									<div class="col-md-4" th:each="item : ${maysaychen}">
 										<div class="single-product-items">
 											<div class="product-item-image">
-												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
-													alt="" height="304px" width="95%"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img
+													th:src="@{'/image/'+${item.image}}" alt="" height="304px"
+													width="95%"></a>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
-													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
+													<a th:text="${item.name}"
+														th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
 												</h5>
 												<ul class="rating">
 													<li><i class="lni-star-filled"></i></li>
@@ -900,8 +874,9 @@
 													<li><i class="lni-star-filled"></i></li>
 													<li><i class="lni-star-filled"></i></li>
 												</ul>
-												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
-												
+												<span class="regular-price"
+													th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+
 											</div>
 										</div>
 										<!-- single product items -->
@@ -911,9 +886,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-2.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -936,9 +909,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-3.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -961,9 +932,7 @@
 											<div class="product-item-image">
 												<a href="#"><img src="assets/images/product/p-1.jpg"
 													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
+												
 											</div>
 											<div class="product-item-content text-center mt-30">
 												<h5 class="product-title">
@@ -988,150 +957,143 @@
 							<!-- product items -->
 						</div>
 						<!-- tab pane -->
-					<div class="col-lg-9 col-md-8">
-					<div class="tab-content" id="v-pills-tabContent">
-						<div class="tab-pane fade" id="v-pills-storage"
-							role="tabpanel" aria-labelledby="v-pills-storage-tab">
-							<div class="product-items mt-30">
-								<div class="row product-items-active">
-									<div class="col-md-4" th:each="item : ${ghe}">
-										<div class="single-product-items">
-											<div class="product-item-image">
-												<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img th:src="@{'/image/'+${item.image}}"
-													alt="" height="304px" width="95%"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
+						<div class="col-lg-9 col-md-8">
+							<div class="tab-content" id="v-pills-tabContent">
+								<div class="tab-pane fade" id="v-pills-storage" role="tabpanel"
+									aria-labelledby="v-pills-storage-tab">
+									<div class="product-items mt-30">
+										<div class="row product-items-active">
+											<div class="col-md-4" th:each="item : ${ghe}">
+												<div class="single-product-items">
+													<div class="product-item-image">
+														<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img
+															th:src="@{'/image/'+${item.image}}" alt="" height="304px"
+															width="95%"></a>
+														
+													</div>
+													<div class="product-item-content text-center mt-30">
+														<h5 class="product-title">
+															<a th:text="${item.name}"
+																th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
+														</h5>
+														<ul class="rating">
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+														</ul>
+														<span class="regular-price"
+															th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+
+													</div>
 												</div>
+												<!-- single product items -->
 											</div>
-											<div class="product-item-content text-center mt-30">
-												<h5 class="product-title">
-													<a th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></a>
-												</h5>
-												<ul class="rating">
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-												</ul>
-												<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
-												
+											<div class="col-md-4">
+												<div class="single-product-items">
+													<div class="product-item-image">
+														<a href="#"><img src="assets/images/product/p-2.jpg"
+															alt="Product"></a>
+														
+													</div>
+													<div class="product-item-content text-center mt-30">
+														<h5 class="product-title">
+															<a href="#">Touchwood Chair</a>
+														</h5>
+														<ul class="rating">
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+														</ul>
+														<span class="regular-price">$129.00</span> <span
+															class="discount-price">$159.00</span>
+													</div>
+												</div>
+												<!-- single product items -->
+											</div>
+											<div class="col-md-4">
+												<div class="single-product-items">
+													<div class="product-item-image">
+														<a href="#"><img src="assets/images/product/p-3.jpg"
+															alt="Product"></a>
+														
+													</div>
+													<div class="product-item-content text-center mt-30">
+														<h5 class="product-title">
+															<a href="#">Classic Wardrobe</a>
+														</h5>
+														<ul class="rating">
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star"></i></li>
+														</ul>
+														<span class="regular-price">$89.00</span> <span
+															class="discount-price">$129.00</span>
+													</div>
+												</div>
+												<!-- single product items -->
+											</div>
+											<div class="col-md-4">
+												<div class="single-product-items">
+													<div class="product-item-image">
+														<a href="#"><img src="assets/images/product/p-1.jpg"
+															alt="Product"></a>
+														
+													</div>
+													<div class="product-item-content text-center mt-30">
+														<h5 class="product-title">
+															<a href="#">Touchwood Chair</a>
+														</h5>
+														<ul class="rating">
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+														</ul>
+														<span class="regular-price">$59.00</span> <span
+															class="discount-price">$69.00</span>
+													</div>
+												</div>
+												<!-- single product items -->
+											</div>
+											<div class="col-md-4">
+												<div class="single-product-items">
+													<div class="product-item-image">
+														<a href="#"><img src="assets/images/product/p-2.jpg"
+															alt="Product"></a>
+														
+													</div>
+													<div class="product-item-content text-center mt-30">
+														<h5 class="product-title">
+															<a href="#">Touchwood Chair</a>
+														</h5>
+														<ul class="rating">
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+															<li><i class="lni-star-filled"></i></li>
+														</ul>
+														<span class="regular-price">$59.00</span> <span
+															class="discount-price">$69.00</span>
+													</div>
+												</div>
+												<!-- single product items -->
 											</div>
 										</div>
-										<!-- single product items -->
+										<!-- row -->
 									</div>
-									<div class="col-md-4">
-										<div class="single-product-items">
-											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-2.jpg"
-													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-20%</p>
-												</div>
-											</div>
-											<div class="product-item-content text-center mt-30">
-												<h5 class="product-title">
-													<a href="#">Touchwood Chair</a>
-												</h5>
-												<ul class="rating">
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-												</ul>
-												<span class="regular-price">$129.00</span> <span
-													class="discount-price">$159.00</span>
-											</div>
-										</div>
-										<!-- single product items -->
-									</div>
-									<div class="col-md-4">
-										<div class="single-product-items">
-											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-3.jpg"
-													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-10%</p>
-												</div>
-											</div>
-											<div class="product-item-content text-center mt-30">
-												<h5 class="product-title">
-													<a href="#">Classic Wardrobe</a>
-												</h5>
-												<ul class="rating">
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star"></i></li>
-												</ul>
-												<span class="regular-price">$89.00</span> <span
-													class="discount-price">$129.00</span>
-											</div>
-										</div>
-										<!-- single product items -->
-									</div>
-									<div class="col-md-4">
-										<div class="single-product-items">
-											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-1.jpg"
-													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
-											</div>
-											<div class="product-item-content text-center mt-30">
-												<h5 class="product-title">
-													<a href="#">Touchwood Chair</a>
-												</h5>
-												<ul class="rating">
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-												</ul>
-												<span class="regular-price">$59.00</span> <span
-													class="discount-price">$69.00</span>
-											</div>
-										</div>
-										<!-- single product items -->
-									</div>
-									<div class="col-md-4">
-										<div class="single-product-items">
-											<div class="product-item-image">
-												<a href="#"><img src="assets/images/product/p-2.jpg"
-													alt="Product"></a>
-												<div class="product-discount-tag">
-													<p>-60%</p>
-												</div>
-											</div>
-											<div class="product-item-content text-center mt-30">
-												<h5 class="product-title">
-													<a href="#">Touchwood Chair</a>
-												</h5>
-												<ul class="rating">
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-													<li><i class="lni-star-filled"></i></li>
-												</ul>
-												<span class="regular-price">$59.00</span> <span
-													class="discount-price">$69.00</span>
-											</div>
-										</div>
-										<!-- single product items -->
-									</div>
+									<!-- product items -->
 								</div>
-								<!-- row -->
+								<!-- tab pane -->
 							</div>
-							<!-- product items -->
+							<!-- tab content -->
 						</div>
-						<!-- tab pane -->
 					</div>
-					<!-- tab content -->
+					<!-- row -->
 				</div>
-			</div>
-			<!-- row -->
-		</div>
-		<!-- container -->
+				<!-- container -->
 	</section>
 
 	<!--====== PRODUCT PART ENDS ======-->
@@ -1139,32 +1101,36 @@
 	<!--====== PRODUCT PART ENDS ======-->
 
 	<div class="containner">
+		<div class="d-flex justify-content-center">
+			<form th:action="@{/index}" method="post">
+				<input name="keywords" th:value="${keywords}">
+				<button>Search</button>
+			</form>
+		</div>
 		<div id="productTable">
 			<div class="product-items mt-30">
 				<div class="row ">
 					<div class="col-md-3" th:each="item : ${products}">
 						<div class="single-product-items">
 							<div class="product-item-image">
-									<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img class="img-fluid w-100"
-									th:src="@{'/image/'+${item.image}}"  alt="" height="150px"
-									width="95%"></a>
-								<div class="product-discount-tag">
-
-									<p>-40%</p>
-
-								</div>
+								<a th:href="@{/chiTietSanPham(productId=${item.id})}"><img
+									class="img-fluid w-100" th:src="@{'/image/'+${item.image}}"
+									alt="" height="150px" width="95%"></a>
+								
 							</div>
 
 							<div class="product-item-content text-center mt-30">
-								<h5 class="product-title" th:text="${item.name}" th:href="@{/chiTietSanPham(productId=${item.id})}"></h5>
+								<h5 class="product-title" th:text="${item.name}"
+									th:href="@{/chiTietSanPham(productId=${item.id})}"></h5>
 								<ul class="rating">
 									<li><i class="lni-star-filled"></i></li>
 									<li><i class="lni-star-filled"></i></li>
 									<li><i class="lni-star-filled"></i></li>
 									<li><i class="lni-star-filled"></i></li>
 								</ul>
-								<span class="regular-price" th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ 
-									
+								<span class="regular-price"
+									th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+
 
 							</div>
 						</div>
@@ -1177,90 +1143,101 @@
 				<!-- row -->
 			</div>
 			<!-- product items -->
-		</div>
-		
-		<div class="d-flex justify-content-center"> <nav aria-label="Page navigation "  >
-			<ul class="pagination">
-				<li class="page-item"><a class="page-link"
-					href="javascript:void(0)" th:onclick="'loadPage(0)'">First</a></li>
-				<li class="page-item"><a class="page-link"
-					href="javascript:void(0)"
-					th:onclick="'loadPage(' + ${products.number - 1} + ')'"
-					th:if="${products.number > 0}">Previous</a></li>
-				<li class="page-item"><a class="page-link"
-					href="javascript:void(0)"
-					th:onclick="'loadPage(' + ${products.number + 1} + ')'"
-					th:if="${products.number < products.totalPages - 1}">Next</a></li>
-				<li class="page-item"><a class="page-link"
-					href="javascript:void(0)"
-					th:onclick="'loadPage(' + ${products.totalPages - 1} + ')'"
-					th:if="${products.number < products.totalPages - 1}">Last</a></li>
-			</ul>
-		</nav>
+
+
+			<div class="d-flex justify-content-center">
+				<nav aria-label="Page navigation ">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link"
+							href="javascript:void(0)" th:onclick="'loadPage(0)'">First</a></li>
+						<li class="page-item"><a class="page-link"
+							href="javascript:void(0)"
+							th:onclick="'loadPage(' + ${products.number - 1} + ')'"
+							th:if="${products.number > 0}">Previous</a></li>
+						<li class="page-item"><a class="page-link"
+							href="javascript:void(0)"
+							th:onclick="'loadPage(' + ${products.number + 1} + ')'"
+							th:if="${products.number < products.totalPages - 1}">Next</a></li>
+						<li class="page-item"><a class="page-link"
+							href="javascript:void(0)"
+							th:onclick="'loadPage(' + ${products.totalPages - 1} + ')'"
+							th:if="${products.number < products.totalPages - 1}">Last</a></li>
+					</ul>
+				</nav>
+			</div>
 		</div>
 	</div>
-<!--===== Cart ======-->
+	<!--====== DISCOUNT START ======-->
 
-
-	<section id="cart" class="contact-area pt-115">
+	<section id="discountproduct" class="product-area pt-100 pb-130">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
 					<div class="contact-title text-center">
-						<h2 class="title">Giỏ hàng của bạn</h2>
+						<h2 class="title">Sản phẩm khuyến mãi</h2>
 
 					</div>
 					<!-- contact title -->
 				</div>
 			</div>
 			<!-- row -->
-			<div class="contact-box mt-70">
-				<form>
-					<table class="table table-striped">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Tên sản phẩm</th>
-								<th scope="col">Hình ảnh</th>
-								<th scope="col">Số lượng</th>
-								<th scope="col">Giá gốc</th>
-								<th scope="col"></th>
-							</tr>
-						</thead>
-						<tbody>
-							
-								<tr th:each="cart, iStat : ${carts}">
-									<th th:text="${iStat.index+1}"></th>
-									<td th:text="${cart.product.name}"></td>
-									<td><img th:src="@{/image/{imageName}(imageName=${cart.product.image})}" alt=""
-										height="50"></td>
-									<td th:text="${cart.quantity}"></td>
-									<td  th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
-									<td>
-									    <a th:href="@{/user/deleteCart/{id}(id=${cart.id})}" class="btn btn-danger btn-sm ml-auto" onclick="return confirmDelete()">xóa</a>
-									</td>
-								</tr>
-							
-						</tbody>
-						
-					</table>
-					<div class="d-flex justify-content-end">
-						<strong>Total Amount: </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
+			<div class="row">
+				<div class=" col-md-12">
+					<div class="tab-content" id="v-pills-tabContent">
+						<div class="tab-pane fade show active" id="v-pills-furniture"
+							role="tabpanel" aria-labelledby="v-pills-furniture-tab">
+							<div class="product-items mt-30">
+								<div class="row product-items-active">
+									<div class="col-md-3" th:each="item : ${discounts}">
+										<div class="single-product-items">
+											<div class="product-item-image">
+												<a
+													th:href="@{/chiTietSanPham(productId=${item.product.id})}"><img
+													class="img-fluid w-100"
+													th:src="@{'/image/'+${item.product.image}}" alt=""
+													height="150px" width="95%"></a>
+												
+											</div>
+											<div class="product-item-content text-center mt-30">
+												<h5 class="product-title" th:text="${item.product.name}"></h5>
+												<ul class="rating">
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+													<li><i class="lni-star-filled"></i></li>
+												</ul>
+												<span class="regular-price"
+													th:text="${#numbers.formatDecimal(item.discountAmount, 0, 'COMMA', 0, 'POINT')}"></span>vnđ
+												<del class="regular-price"
+													th:text="${#numbers.formatDecimal(item.product.price, 0, 'COMMA', 0, 'POINT')}"></del>
+												vnđ
+											</div>
+										</div>
+										<!-- single product items -->
+									</div>
+								</div>
+								<!-- row -->
+							</div>
+							<!-- product items -->
+						</div>
+						<!-- tab pane -->
 					</div>
-					<br>
-					<div class="d-flex justify-content-end">
-				        <a th:href="@{/saveOrder}" data-toggle="modal" data-target="#cartModal"
-       class="btn btn-info btn-sm ml-auto" >Thanh toán</a>
-				    </div>
-	    		</form>
-
+				</div>
 			</div>
-			<!-- contact box -->
+			<!-- row -->
 		</div>
 		<!-- container -->
 	</section>
+	<!--====== DISCOUNT START ======-->
+
+	<!--===== Cart ======-->
+	<div id="quantity-and-price-wrapper">
+		<div
+			th:replace="~{fragments/quantity-and-price :: quantity-and-price}"></div>
+	</div>
 
 	<!--===== Cart END ======-->
+
 	<!--===== Order ======-->
 
 
@@ -1279,29 +1256,32 @@
 			<div class="contact-box mt-70">
 				<form>
 					<table class="table table-striped">
-					  <thead>
-					    <tr>
-					      <th scope="col">#</th>
-					      <th scope="col">ID</th>
-					      <th scope="col">Total Amount</th>
-					      <th scope="col">Date</th>
-					      <th scope="col"></th>
-					    </tr>
-					  </thead>
-					  <tbody>
-					    <tr th:each="order, iStat : ${orders}">
-					      <th th:text="${iStat.index+1}"></th>
-					      <td th:text="${order.id}"></td>
-					      <td th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></td>
-					      <td th:text="${order.orderDate}"></td>
-					      <td>
-					        <a th:href="@{/editOrder/{id}(id=${order.id})}" data-toggle="modal" th:data-target="'#orderModal' + ${order.id}"
-     th:data-order-id="${order.id}" class="btn btn-info btn-sm ml-auto">Xem</a>
-					      </td>
-					    </tr>
-					  </tbody>
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">ID</th>
+								<th scope="col">Total Amount</th>
+								<th scope="col">Date</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="order, iStat : ${orders}">
+								<th th:text="${iStat.index+1}"></th>
+								<td th:text="${order.id}"></td>
+								<td
+									th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></td>
+								<td
+									th:utext="${#temporals.format(order.orderDate, 'dd/MM/yyyy HH:mm:ss')}"></td>
+								<td><a th:href="@{/editOrder/{id}(id=${order.id})}"
+									data-toggle="modal"
+									th:data-target="'#orderModal' + ${order.id}"
+									th:data-order-id="${order.id}"
+									class="btn btn-info btn-sm ml-auto">Xem</a></td>
+							</tr>
+						</tbody>
 					</table>
-	    		</form>
+				</form>
 
 			</div>
 			<!-- contact box -->
@@ -1332,26 +1312,6 @@
 								<li>
 									<div class="single-info mt-30">
 										<div class="info-icon">
-											<i class="lni-phone-handset"></i>
-										</div>
-										<div class="info-content">
-											<p>Thông tin tài khoản</p>
-										</div>
-									</div> <!-- single info -->
-								</li>
-								<li>
-									<div class="single-info mt-30">
-										<div class="info-icon">
-											<i class="lni-envelope"></i>
-										</div>
-										<div class="info-content">
-											<p>Danh sách địa chỉ</p>
-										</div>
-									</div> <!-- single info -->
-								</li>
-								<li>
-									<div class="single-info mt-30">
-										<div class="info-icon">
 											<i class="lni-home"></i>
 										</div>
 										<div class="info-content">
@@ -1365,14 +1325,15 @@
 					</div>
 					<div class="col-lg-8">
 						<div class="contact-form">
-							<form id="contact-form1" th:action="@{/saveProfile}" method="post"
-								data-toggle="validator">
+							<form id="contact-form1" th:action="@{/saveProfile}"
+								method="post" data-toggle="validator">
 								<div class="row">
-								<div class="col-lg-6">
+
+									<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="text" name="id" th:if="${account != null}"
-       											th:field="${account.id}" readonly
-												placeholder="Nhập vào tên đăng nhập"
+											Username: <input type="text" name="username"
+												th:if="${account != null}" th:field="${account.username}"
+												readonly placeholder="Nhập vào tên đăng nhập"
 												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
@@ -1380,43 +1341,61 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="text" name="username" th:if="${account != null}"
-       											th:field="${account.username}"
-												placeholder="Nhập vào tên đăng nhập"
-												data-error="Name is required." required="required">
-											<div class="help-block with-errors"></div>
-										</div>
-										<!-- single form -->
-									</div>
-									<div class="col-lg-6">
-										<div class="single-form form-group">
-											<input type="email" name="email" th:if="${account != null}"
-       											th:field="${account.email}"  placeholder="Nhập vào email"
+											Email: <input type="email" name="email"
+												th:if="${account != null}" th:field="${account.email}"
+												readonly placeholder="Nhập vào email"
 												data-error="Valid email is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
 										<!-- single form -->
 									</div>
-<div class="col-lg-6">
+									<div class="col-lg-6">
 										<div class="single-form form-group">
-											<input type="text" name="password" 
-												placeholder="Nhập vào mật khẩu" th:if="${account != null}"
-       											th:field="${account.password}"
-												data-error="Valid password is required." required="required">
+											Password:
+											<div class="input-group">
+												<div class="row">
+													<div class="col-md-10">
+														<input type="password" name="password"
+															data-error="Valid password is required."
+															required="required"> <input type="text"
+															name="password" hidden th:if="${account != null}"
+															th:field="${account.password}">
+													</div>
+													<div class="col-md-2">
+													<button style="height: 55px;" class="btn btn-outline-secondary"
+														type="button" onclick="togglePasswordVisibility()">
+														<i class="fa fa-eye"></i>
+													</button>
+													</div>
+													
+												</div>
+
+											</div>
 											<div class="help-block with-errors"></div>
 										</div>
 										<!-- single form -->
 									</div>
 									<div class="col-lg-6">
-									<div class="single-form form-group">
-											<input type="text" name="fullname" 
+										<div class="single-form form-group">
+											Full name:
+ 												<input type="text" name="fullname"
 												placeholder="Nhập vào tên đăng nhập"
-												th:if="${account != null}"
-       											th:field="${account.fullname}"
+												th:if="${account != null}" th:field="${account.fullname}"
+												data-error="Name is required." style="
+    											margin-top: 13px;" required="required">
+											<div class="help-block with-errors"></div>
+										</div>
+										<!-- single form -->
+									</div>
+									<div class="col-lg-6">
+										<div class="single-form form-group">
+											<input type="text" name="id" hidden
+												th:if="${account != null}" th:field="${account.id}" readonly
+												placeholder="Nhập vào tên đăng nhập"
 												data-error="Name is required." required="required">
 											<div class="help-block with-errors"></div>
 										</div>
-											<!-- single form -->
+										<!-- single form -->
 									</div>
 									<p class="form-message"></p>
 									<div class="col-lg-12">
@@ -1453,7 +1432,7 @@
 				</div>
 			</div>
 			<!-- row -->
-			<div class="contact-box mt-70">
+			<div class="contact-box mt-70 ">
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="contact-info pt-25">
@@ -1493,49 +1472,7 @@
 						</div>
 						<!-- contact info -->
 					</div>
-					<div class="col-lg-8">
-						<div class="contact-form">
-							<form id="contact-form" action="assets/contact.php" method="post"
-								data-toggle="validator">
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="single-form form-group">
-											<input type="text" name="name"
-												placeholder="Nhập vào tên đăng nhập"
-												data-error="Name is required." required="required">
-											<div class="help-block with-errors"></div>
-										</div>
-										<!-- single form -->
-									</div>
-									<div class="col-lg-6">
-										<div class="single-form form-group">
-											<input type="email" name="email" placeholder="Nhập vào email"
-												data-error="Valid email is required." required="required">
-											<div class="help-block with-errors"></div>
-										</div>
-										<!-- single form -->
-									</div>
-									<div class="col-lg-12">
-										<div class="single-form form-group">
-											<textarea name="message" placeholder="Nhập vào tin nhắn"
-												data-error="Please,leave us a message." required="required"></textarea>
-											<div class="help-block with-errors"></div>
-										</div>
-										<!-- single form -->
-									</div>
-									<p class="form-message"></p>
-									<div class="col-lg-12">
-										<div class="single-form form-group">
-											<button class="main-btn" type="submit">Liên hệ ngay</button>
-										</div>
-										<!-- single form -->
-									</div>
-								</div>
-								<!-- row -->
-							</form>
-						</div>
-						<!-- row -->
-					</div>
+
 				</div>
 				<!-- row -->
 			</div>
@@ -1672,6 +1609,58 @@
 
 	<!--====== Main js ======-->
 	<script src="assets/js/main.js"></script>
+	<script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+							$(document)
+									.on(
+											'click',
+											'.minus-btn, .plus-btn',
+											function() {
+												var cartId = $(this).data(
+														'cart-id');
+												var action = $(this).data(
+														'action');
+												var quantityInput = $(this)
+														.parent()
+														.find(
+																'input[type="text"]');
+												var targetElement = $('#quantity-and-price-wrapper');
+
+												$
+														.ajax({
+															url : '/user/updateQuantity',
+															type : 'POST',
+															data : {
+																cartId : cartId,
+																action : action
+															},
+															success : function(
+																	data) {
+																targetElement
+																		.html(data);
+																updateTotalAmount();
+															},
+															error : function(
+																	xhr,
+																	status,
+																	error) {
+																console
+																		.log(error);
+															}
+														});
+											});
+						});
+	</script>
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var alertMessage = /*[[${hetHangMessage}]]*/'';
+		if (alertMessage) {
+			alert(alertMessage);
+		}
+		/*]]>*/
+	</script>
 
 	<script>
 		function confirmDelete() {
@@ -1699,54 +1688,95 @@
 		}
 		/*]]>*/
 	</script>
-<div th:each="order, iStat : ${orderDetails}" >
-<div class="modal fade"  th:id="'orderModal' + ${order.order.id}" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="orderModalLabel">Thông tin đơn hàng</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
-        <h4>User: <small th:text="${order.order.user.fullname}"></small>  </h4><br>
-        <h4>Product: <small th:text="${order.order.note}"></small>  </h4><br>
-        <h4>Quantity: <small th:text="${order.quantity}"></small></h4><br>
-		<h4>Total Amount: <small th:text="${#numbers.formatDecimal(order.order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></small><small> vnđ</small></h4><br>
-        <h4>Address: <small th:text="${order.address}"></small></h4><br>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-      </div>
-    </div>
-  </div>
-</div>
+	<script>
+		window.onload = function() {
+			var passwordInput2 = document.getElementsByName("password")[1];
+			var passwordInput = document.getElementsByName("password")[0];
+			passwordInput.value = passwordInput2.value
+		};
+		function togglePasswordVisibility() {
+			var passwordInput = document.getElementsByName("password")[0];
+
+			if (passwordInput.type === "text") {
+				passwordInput.type = "password";
+			} else {
+				passwordInput.type = "text";
+			}
+		}
+	</script>
+	<div th:each="order, iStat : ${orderDetails}">
+		<div class="modal fade" th:id="'orderModal' + ${order.order.id}"
+			tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="orderModalLabel">Thông tin đơn
+							hàng</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
+						<h4>
+							User: <small th:text="${order.order.user.fullname}"></small>
+						</h4>
+						<br>
+						<h4>
+							Product: <small th:text="${order.order.note}"></small>
+						</h4>
+						<br>
+						<h4>
+							Quantity: <small th:text="${order.quantity}"></small>
+						</h4>
+						<br>
+						<h4>
+							Total Amount: <small
+								th:text="${#numbers.formatDecimal(order.order.totalAmount, 0, 'COMMA', 0, 'POINT')}"></small><small>
+								vnđ</small>
+						</h4>
+						<br>
+						<h4>
+							Address: <small th:text="${order.address}"></small>
+						</h4>
+						<br>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Đóng</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="modal fade"  th:id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="orderModalLabel">Điền địa chỉ</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
-       <form th:action="@{/saveOrder}" method="post">
-       		<input type="text" name="address">
-       		<button type="submit" class="btn btn-secondary">Thanh toán</button>
-       </form>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-      </div>
-    </div>
-  </div>
-</div>
+	<div class="modal fade" th:id="cartModal" tabindex="-1" role="dialog"
+		aria-labelledby="cartModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="orderModalLabel">Điền địa chỉ</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<!-- Nội dung chi tiết đơn hàng sẽ được hiển thị ở đây -->
+					<form th:action="@{/saveOrder}" method="post">
+						<input type="text" name="address">
+						<button type="submit" class="btn btn-secondary">Đặt hàng</button>
+					</form>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Đóng</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>
