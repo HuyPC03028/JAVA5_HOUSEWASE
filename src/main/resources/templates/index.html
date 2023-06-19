@@ -81,21 +81,21 @@
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
 							<ul id="nav" class="navbar-nav ml-auto">
 								<li class="nav-item active"><a data-scroll-nav="0"
-									href="#home" >Trang chủ</a></li>
-								<li class="nav-item"><a data-scroll-nav="0" href="#product">Sản
-										Phẩm</a></li>
-								<li class="nav-item"><a data-scroll-nav="0" href="#cart">Giỏ
-										hàng</a></li>
-								<li class="nav-item"><a data-scroll-nav="0" href="#order">Đơn
-										hàng</a></li>
-								<li class="nav-item"><a data-scroll-nav="0" href="#profile">Hồ
-										sơ</a></li>
-								<li class="nav-item"><a data-scroll-nav="0" href="#contact">Liên
-										hệ</a></li>
+									href="#home" th:text="#{label.title}"></a></li>
+								<li class="nav-item"><a data-scroll-nav="0" href="#product" th:text="#{label.product}"></a></li>
+								<li class="nav-item"><a data-scroll-nav="0" href="#cart" th:text="#{label.cart}"></a></li>
+								<li class="nav-item"><a data-scroll-nav="0" href="#order" th:text="#{label.order}"></a></li>
+								<li class="nav-item"><a data-scroll-nav="0" href="#profile" th:text="#{label.file}"></a></li>
+								<li class="nav-item"><a data-scroll-nav="0" href="#contact" th:text="#{label.contact}"></a></li>
 								<li class="nav-item" th:if="${loggedIn}"><a
 									th:text="${username}" href="#">Username</a></li>
 								<li class="nav-item" th:unless="${loggedIn}"><a
 									href="/account/login">Đăng nhập</a></li>
+									<li></a>
+				<span class="text-muted px-2">|</span>
+				<a class="text-dark" href="index?lang=vi">VI</a> <span
+					class="text-muted px-2">|</span> <a class="text-dark"
+					href="index?lang=en">EN</a></li>
 							</ul>
 							<!-- navbar nav -->
 						</div>
@@ -306,28 +306,22 @@
 			<div class="row">
 				<div class="col-lg-3 col-md-4">
 					<div class="collection-menu text-center mt-30">
-						<h4 class="collection-tilte">BỘ SƯU TẬP CỦA CHÚNG TÔI</h4>
+						<h4 class="collection-tilte" th:text="#{label.bxt}"></h4>
 						<div class="nav flex-column nav-pills" id="v-pills-tab"
 							role="tablist" aria-orientation="vertical">
 							<a class="active" id="v-pills-furniture-tab" data-toggle="pill"
 								href="#v-pills-furniture" role="tab"
-								aria-controls="v-pills-furniture" aria-selected="true">Đồ
-								gia dụng</a> <a id="v-pills-decorative-tab" data-toggle="pill"
+								aria-controls="v-pills-furniture" aria-selected="true" th:text="#{label.housewase}"></a> <a id="v-pills-decorative-tab" data-toggle="pill"
 								href="#v-pills-decorative" role="tab"
-								aria-controls="v-pills-decorative" aria-selected="false">Tủ
-								lạnh</a> <a id="v-pills-lighting-tab" data-toggle="pill"
+								aria-controls="v-pills-decorative" aria-selected="false" th:text="#{label.fridge}"></a> <a id="v-pills-lighting-tab" data-toggle="pill"
 								href="#v-pills-lighting" role="tab"
-								aria-controls="v-pills-lighting" aria-selected="false">Bếp
-								điện từ</a> <a id="v-pills-outdoor-tab" data-toggle="pill"
+								aria-controls="v-pills-lighting" aria-selected="false" th:text="#{label.stove}"></a> <a id="v-pills-outdoor-tab" data-toggle="pill"
 								href="#v-pills-outdoor" role="tab"
-								aria-controls="v-pills-outdoor" aria-selected="false">Máy
-								sấy chén</a> <a id="v-pills-storage-tab" data-toggle="pill"
+								aria-controls="v-pills-outdoor" aria-selected="false" th:text="#{label.dish}"></a> <a id="v-pills-storage-tab" data-toggle="pill"
 								href="#v-pills-storage" role="tab"
-								aria-controls="v-pills-storage" aria-selected="false">Bếp
-								Gas</a> <a id="v-pills-storage-tab" data-toggle="pill"
+								aria-controls="v-pills-storage" aria-selected="false" th:text="#{label.gas}"></a> <a id="v-pills-storage-tab" data-toggle="pill"
 								href="#v-pills-storage" role="tab"
-								aria-controls="v-pills-storage" aria-selected="false">Ghế
-								nội thất</a>
+								aria-controls="v-pills-storage" aria-selected="false" th:text="#{label.chair}"></a>
 						</div>
 						<!-- nav -->
 					</div>
@@ -1104,7 +1098,7 @@
 		<div class="d-flex justify-content-center">
 			<form th:action="@{/index}" method="post">
 				<input name="keywords" th:value="${keywords}">
-				<button>Search</button>
+				<button th:text="#{label.search}"></button>
 			</form>
 		</div>
 		<div id="productTable">
@@ -1174,7 +1168,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
 					<div class="contact-title text-center">
-						<h2 class="title">Sản phẩm khuyến mãi</h2>
+						<h2 class="title" th:text="#{label.Promotional}"></h2>
 
 					</div>
 					<!-- contact title -->
@@ -1246,7 +1240,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
 					<div class="contact-title text-center">
-						<h2 class="title">Đơn hàng của bạn</h2>
+						<h2 class="title" th:text="#{label.YourOrder}"></h2>
 
 					</div>
 					<!-- contact title -->
@@ -1260,8 +1254,8 @@
 							<tr>
 								<th scope="col">#</th>
 								<th scope="col">ID</th>
-								<th scope="col">Total Amount</th>
-								<th scope="col">Date</th>
+								<th scope="col" th:text="#{label.total}"></th>
+								<th scope="col" th:text="#{label.date}"></th>
 								<th scope="col"></th>
 							</tr>
 						</thead>
@@ -1277,7 +1271,7 @@
 									data-toggle="modal"
 									th:data-target="'#orderModal' + ${order.id}"
 									th:data-order-id="${order.id}"
-									class="btn btn-info btn-sm ml-auto">Xem</a></td>
+									class="btn btn-info btn-sm ml-auto" th:text="#{label.view}">Xem</a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -1295,9 +1289,9 @@
 	<section id="profile" class="contact-area pt-115">
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-lg-6">
+				<div class="col-lg-6"> 
 					<div class="contact-title text-center">
-						<h2 class="title">Tài khoản của bạn</h2>
+						<h2 class="title" th:text="#{label.YourAccount}"></h2>
 					</div>
 					<!-- contact title -->
 				</div>
@@ -1307,7 +1301,7 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="contact-info pt-25">
-							<h4 class="info-title">Tài khoản</h4>
+							<h4 class="info-title" th:text="#{label.Account}">Tài khoản</h4>
 							<ul>
 								<li>
 									<div class="single-info mt-30">
@@ -1315,7 +1309,7 @@
 											<i class="lni-home"></i>
 										</div>
 										<div class="info-content">
-											<a href="/logout"><p>Đăng xuất</p></a>
+											<a href="/logout"><p th:text="#{label.exit}"></p></a>
 										</div>
 									</div> <!-- single info -->
 								</li>
@@ -1400,7 +1394,7 @@
 									<p class="form-message"></p>
 									<div class="col-lg-12">
 										<div class="single-form form-group">
-											<button class="main-btn" type="submit">Cập nhật</button>
+											<button class="main-btn" type="submit" th:text="#{label.btn.update}"></button>
 										</div>
 										<!-- single form -->
 									</div>
@@ -1426,7 +1420,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
 					<div class="contact-title text-center">
-						<h2 class="title">Liên lạc</h2>
+						<h2 class="title" th:text="#{label.contact}"></h2>
 					</div>
 					<!-- contact title -->
 				</div>
@@ -1436,7 +1430,7 @@
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="contact-info pt-25">
-							<h4 class="info-title">Thông tin liên hệ</h4>
+							<h4 class="info-title" th:text="#{label.contactInfo}"></h4>
 							<ul>
 								<li>
 									<div class="single-info mt-30">
