@@ -5,7 +5,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-6">
 					<div class="contact-title text-center">
-						<h2 class="title">Giỏ hàng của bạn</h2>
+						<h2 class="title" th:text="#{label.YourCart}"></h2>
 						<div th:if="${hetHangMessage}" class="alert alert-danger" role="alert">
 						    <span th:text="${hetHangMessage}"></span>
 						</div>
@@ -20,10 +20,10 @@
 						<thead>
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Tên sản phẩm</th>
-								<th scope="col">Hình ảnh</th>
-								<th scope="col">Số lượng</th>
-								<th scope="col">Giá gốc</th>
+								<th scope="col" th:text="#{label.NameProduct}"></th>
+								<th scope="col" th:text="#{label.image}"></th>
+								<th scope="col" th:text="#{label.quantity}"></th>
+								<th scope="col" th:text="#{label.cost}"></th>
 								<th scope="col"></th>
 							</tr>
 						</thead>
@@ -45,7 +45,7 @@
 									<!-- quantity-and-price.html -->
 									<td th:text="${#numbers.formatDecimal(cart.product.price, 0, 'COMMA', 0, 'POINT')}"></td>
 									<td>
-									    <a th:href="@{/user/deleteCart/{id}(id=${cart.id})}" class="btn btn-danger btn-sm ml-auto" onclick="return confirmDelete()">xóa</a>
+									    <a th:href="@{/user/deleteCart/{id}(id=${cart.id})}" class="btn btn-danger btn-sm ml-auto" onclick="return confirmDelete()" th:text="#{label.btn.delete}"></a>
 									</td>
 								</tr>
 							
@@ -53,7 +53,7 @@
 						
 					</table>
 					<div class="d-flex justify-content-end">
-						<strong>Total Amount: </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
+						<strong th:text="#{label.total}"> </strong><span th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')}"></span><b> vnđ</b>
 						
 					</div>
 					<div th:if="${totalNoSale}" class="d-flex justify-content-end">
@@ -62,7 +62,7 @@
 					<br>
 					<div class="d-flex justify-content-end">
 				        <a th:href="@{/saveOrder}" data-toggle="modal" data-target="#cartModal"
-       class="btn btn-info btn-sm ml-auto" >Đặt hàng</a>
+       class="btn btn-info btn-sm ml-auto" th:text="#{label.btn.order}"></a>
        
 				    </div>
 	    		</form>
